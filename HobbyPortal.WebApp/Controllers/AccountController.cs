@@ -47,7 +47,6 @@ namespace HobbyPortal.WebApp.Controllers
             var result = await userManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
             {
-                await signInManager.SignInAsync(user, isPersistent: false);
                 return Ok(user.Id);
             }
 
