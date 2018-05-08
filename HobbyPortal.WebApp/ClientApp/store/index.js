@@ -6,9 +6,9 @@ import profile from './modules/profile'
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
-    modules: {
-        profile
-    }
+  modules: {
+    profile
+  }
 })
 
 export default store

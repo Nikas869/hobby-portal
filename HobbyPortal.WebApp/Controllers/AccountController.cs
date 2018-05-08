@@ -81,7 +81,9 @@ namespace HobbyPortal.WebApp.Controllers
             {
                 new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(JwtRegisteredClaimNames.Email, user.Email)
+                new Claim(JwtRegisteredClaimNames.Email, user.Email),
+
+                new Claim(ClaimsIdentity.DefaultNameClaimType, user.UserName)
             }.Union(userClaims);
 
             var token = new JwtSecurityToken(
@@ -97,6 +99,13 @@ namespace HobbyPortal.WebApp.Controllers
                 token = new JwtSecurityTokenHandler().WriteToken(token),
                 expiration = token.ValidTo
             });
+        }
+
+        [Route("info")]
+        [HttpGet]
+        public string GetUserInfo()
+        {
+            return User.Identity.Name;
         }
     }
 }

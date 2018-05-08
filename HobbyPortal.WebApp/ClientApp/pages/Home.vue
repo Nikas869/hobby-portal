@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <img :src="require('../assets/logo.png')">
-    <h1>{{ msg }}</h1>
+    <h1>Welcome to Your Vue.js App, {{ email }}!</h1>
     <h2>Essential Links</h2>
     <ul>
       <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
@@ -20,12 +20,26 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   name: 'app',
-  data () {
-    return {
-      msg: 'Welcome to Your Vue.js App'
+  computed: {
+    email() {
+      return this.$store.getters.userEmail
     }
+  },
+  created() {
+    this.$http
+      .get('http://localhost:60857/api/account/info', {
+        headers: {
+          Authorization:
+            'bearer ' +
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhc2QxQGFzZC5hc2QiLCJqdGkiOiJkMjE0NzU3Yi1lMDFkLTRhYmItOTUyYS1lNTg4NTQ0YjUwNTMiLCJlbWFpbCI6ImFzZDFAYXNkLmFzZCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJhc2QxQGFzZC5hc2QiLCJuYmYiOjE1MjU3Njg2MzMsImV4cCI6MTUyNTc3MDQzMywiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo0NDM4My8iLCJhdWQiOiJhcGkifQ.MIXDAuj5ieuW8MaekQYKGWA4NeXV6QzjifE9q3NLkTI'
+        }
+      })
+      .then(response => this.$store.dispatch('setUserEmail', response.data))
+      .catch(error => console.log(error))
   }
 }
 </script>
@@ -40,7 +54,8 @@ export default {
   margin-top: 60px;
 }
 
-h1, h2 {
+h1,
+h2 {
   font-weight: normal;
 }
 
