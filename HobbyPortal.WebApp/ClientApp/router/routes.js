@@ -1,5 +1,5 @@
 import AppHome from '../pages/Home'
-import AppLogin from '../pages/Login'
+import AppLogin from '../pages/auth/Login'
 
 export const routes = [
   {

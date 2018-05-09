@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+    <v-app>
     <app-header></app-header>
     <v-content>
       <v-container fluid>
@@ -11,18 +11,14 @@
 </template>
 
 <script>
-import AppHeader from './Header'
-import AppFooter from './Footer'
+import AppHeader from './layout/Header'
+import AppFooter from './layout/Footer'
 
 export default {
-  name: 'AppLayout',
+  name: 'App',
   components: {
     AppHeader,
     AppFooter
   }
 }
 </script>
-
-<style>
-
-</style>
