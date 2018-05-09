@@ -52,6 +52,8 @@ namespace HobbyPortal.WebApp
             });
 
             services.AddMvc();
+
+            services.AddCors();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -71,6 +73,13 @@ namespace HobbyPortal.WebApp
 
             app.UseAuthentication();
             app.UseStaticFiles();
+
+            app.UseCors(builder => builder
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials());
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
