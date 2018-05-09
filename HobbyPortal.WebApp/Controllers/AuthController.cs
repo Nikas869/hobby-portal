@@ -15,15 +15,15 @@ using System.Threading.Tasks;
 namespace HobbyPortal.WebApp.Controllers
 {
     [Produces("application/json")]
-    [Route("api/account")]
+    [Route("api/auth")]
     [Authorize]
-    public class AccountController : Controller
+    public class AuthController : Controller
     {
         private readonly UserManager<ApplicationUser> userManager;
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly IConfiguration configuration;
 
-        public AccountController(
+        public AuthController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IConfiguration configuration)
