@@ -7,9 +7,11 @@ namespace HobbyPortal.Infrastructure.Models
     {
         [Key]
         public int GroupId { get; set; }
+
         public string Instructor { get; set; }
 
         public int ClubId { get; set; }
+
         public Club Club { get; set; }
 
         public ICollection<GroupUser> Users { get; set; }
