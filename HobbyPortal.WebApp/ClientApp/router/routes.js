@@ -1,10 +1,12 @@
+import store from '../store'
+
 import AppHome from '../pages/Home'
 import AppLogin from '../pages/auth/Login'
 import AppRegister from '../pages/auth/Register'
 
 export const routes = [
   {
-    path: '/',
+    path: '',
     name: 'index',
     component: AppHome,
     meta: { title: 'Home' }
@@ -13,12 +15,30 @@ export const routes = [
     path: '/login',
     name: 'login',
     component: AppLogin,
-    meta: { title: 'Login' }
+    meta: { title: 'Login' },
+    beforeEnter: (to, from, next) => {
+      if (store.getters.isAuthenticated) {
+        next('/my-clubs')
+      } else {
+        next()
+      }
+    }
   },
   {
     path: '/register',
     name: 'register',
     component: AppRegister,
-    meta: { title: 'Register' }
+    meta: { title: 'Register' },
+    beforeEnter: (to, from, next) => {
+      if (store.getters.isAuthenticated) {
+        next('/my-clubs')
+      } else {
+        next()
+      }
+    }
+  },
+  {
+    path: '/*',
+    redirect: '/'
   }
 ]

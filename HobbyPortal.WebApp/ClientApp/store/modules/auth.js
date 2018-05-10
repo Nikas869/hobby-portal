@@ -1,4 +1,5 @@
 import { api } from '../../http/api'
+import router from '../../router'
 
 const state = {
   token: null,
@@ -31,13 +32,19 @@ const actions = {
     api.post('/auth/register', payload).then(response => {
       commit('setToken', response.data.token)
       dispatch('setExpirationTime', response.data.expiration)
+      router.push('/my-clubs')
     })
   },
   login({ commit, dispatch }, payload) {
     api.post('/auth/login', payload).then(response => {
       commit('setToken', response.data.token)
       dispatch('setExpirationTime', response.data.expiration)
+      router.push('/my-clubs')
     })
+  },
+  logout({ commit }) {
+    commit('clearToken')
+    router.push('/')
   },
   setExpirationTime({ commit, dispatch }, payload) {
     let now = new Date()

@@ -33,7 +33,7 @@
                         <v-list-tile-title>Notifications</v-list-tile-title>
                     </v-list-tile>
                     <v-divider></v-divider>
-                    <v-list-tile to='logout'>
+                    <v-list-tile @click="logout">
                         <v-list-tile-title class="text-xs-center">Logout</v-list-tile-title>
                     </v-list-tile>
                 </v-list>
@@ -47,6 +47,11 @@ export default {
   computed: {
     isAuthenticated() {
       return this.$store.getters.isAuthenticated
+    }
+  },
+  methods: {
+    logout() {
+      this.$store.dispatch('logout')
     }
   }
 }
