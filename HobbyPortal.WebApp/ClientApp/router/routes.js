@@ -3,6 +3,9 @@ import store from '../store'
 import AppHome from '../pages/Home'
 import AppLogin from '../pages/auth/Login'
 import AppRegister from '../pages/auth/Register'
+import AppProfile from '../pages/profile/Profile'
+import AppMyClubs from '../pages/clubs/MyClubs'
+import AppNotifications from '../pages/notifications/Notifications'
 
 export const routes = [
   {
@@ -38,10 +41,22 @@ export const routes = [
     }
   },
   {
+    path: '/profile',
+    name: 'profile',
+    component: AppProfile,
+    meta: { title: 'Profile', needAuth: true }
+  },
+  {
     path: '/my-clubs',
     name: 'my-clubs',
-    component: null,
+    component: AppMyClubs,
     meta: { title: 'My clubs', needAuth: true }
+  },
+  {
+    path: '/notifications',
+    name: 'notifications',
+    component: AppNotifications,
+    meta: { title: 'Notifications', needAuth: true }
   },
   {
     path: '/*',
