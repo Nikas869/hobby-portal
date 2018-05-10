@@ -9,6 +9,8 @@ import 'vuetify/dist/vuetify.min.css'
 
 Vue.use(Vuetify)
 
+store.dispatch('restoreTokenFromStorage')
+
 new Vue({
   el: '#app',
   template: '<App/>',

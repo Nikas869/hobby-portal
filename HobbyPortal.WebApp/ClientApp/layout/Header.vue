@@ -5,11 +5,11 @@
         </v-toolbar-items>
         <v-spacer></v-spacer>
         <v-toolbar-items v-if="!isAuthenticated">
-            <v-btn flat to='register'>Register</v-btn>
-            <v-btn flat to='login'>Login</v-btn>
+            <v-btn flat to='/register'>Register</v-btn>
+            <v-btn flat to='/login'>Login</v-btn>
         </v-toolbar-items>
         <v-toolbar-items v-if="isAuthenticated">
-            <v-btn flat to='my-clubs'>
+            <v-btn flat to='/my-clubs'>
                 <v-icon dark left>sentiment_satisfied_alt</v-icon>
                 My clubs
             </v-btn>
@@ -20,13 +20,13 @@
                     <v-icon dark right>menu</v-icon>
                 </v-btn>
                 <v-list>
-                    <v-list-tile to='profile'>
+                    <v-list-tile to='/profile'>
                         <v-list-tile-avatar>
                             <v-icon>account_circle</v-icon>
                         </v-list-tile-avatar>
                         <v-list-tile-title>Profile</v-list-tile-title>
                     </v-list-tile>
-                    <v-list-tile to='notifications'>
+                    <v-list-tile to='/notifications'>
                         <v-list-tile-avatar>
                             <v-icon>notifications</v-icon>
                         </v-list-tile-avatar>

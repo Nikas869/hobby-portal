@@ -17,9 +17,11 @@ const getters = {
 
 const mutations = {
   setToken(state, payload) {
+    localStorage.setItem('token', payload)
     state.token = payload
   },
   clearToken(state, payload) {
+    localStorage.removeItem('token')
     state.token = null
   },
   setExpiration(state, payload) {
@@ -54,6 +56,12 @@ const actions = {
     setTimeout(() => {
       dispatch('logout')
     }, expirationTime)
+  },
+  restoreTokenFromStorage({ commit }) {
+    let token = localStorage.getItem('token')
+    if (token) {
+      commit('setToken', token)
+    }
   }
 }
 

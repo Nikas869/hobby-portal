@@ -31,11 +31,17 @@ export const routes = [
     meta: { title: 'Register' },
     beforeEnter: (to, from, next) => {
       if (store.getters.isAuthenticated) {
-        next('/my-clubs')
+        next('/login')
       } else {
         next()
       }
     }
+  },
+  {
+    path: '/my-clubs',
+    name: 'my-clubs',
+    component: null,
+    meta: { title: 'My clubs', needAuth: true }
   },
   {
     path: '/*',
