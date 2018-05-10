@@ -14,5 +14,9 @@ namespace HobbyPortal.Infrastructure
         {
             base.OnModelCreating(builder);
         }
+
+        public DbSet<Club> Clubs { get; set; }
+        public DbSet<Group> Groups { get; set; }
+        public DbSet<GroupUser> GroupUsers { get; set; }
     }
 }
