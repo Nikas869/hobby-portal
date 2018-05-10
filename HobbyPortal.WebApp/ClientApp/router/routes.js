@@ -1,5 +1,6 @@
 import AppHome from '../pages/Home'
 import AppLogin from '../pages/auth/Login'
+import AppRegister from '../pages/auth/Register'
 
 export const routes = [
   {
@@ -13,5 +14,11 @@ export const routes = [
     name: 'login',
     component: AppLogin,
     meta: { title: 'Login' }
+  },
+  {
+    path: '/register',
+    name: 'register',
+    component: AppRegister,
+    meta: { title: 'Register' }
   }
 ]

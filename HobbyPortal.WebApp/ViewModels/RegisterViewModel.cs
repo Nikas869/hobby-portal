@@ -15,10 +15,5 @@ namespace HobbyPortal.WebApp.ViewModels
         [DataType(DataType.Password)]
         [JsonProperty("password")]
         public string Password { get; set; }
-
-        [DataType(DataType.Password)]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
-        [JsonProperty("confirmPassword")]
-        public string ConfirmPassword { get; set; }
     }
 }

@@ -47,7 +47,30 @@ namespace HobbyPortal.WebApp.Controllers
             var result = await userManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
             {
-                return Ok(user.Id);
+                var userClaims = await userManager.GetClaimsAsync(user);
+
+                var claims = new[]
+                {
+                    new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                    new Claim(JwtRegisteredClaimNames.Email, user.Email),
+
+                    new Claim(ClaimsIdentity.DefaultNameClaimType, user.UserName)
+                }.Union(userClaims);
+
+                var token = new JwtSecurityToken(
+                    issuer: configuration["Authentication:Issuer"],
+                    audience: configuration["Authentication:Audience"],
+                    claims: claims,
+                    expires: DateTime.Now.AddMinutes(30),
+                    notBefore: DateTime.Now,
+                    signingCredentials: new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Authentication:SigningKey"])), SecurityAlgorithms.HmacSha256));
+
+                return Ok(new
+                {
+                    token = new JwtSecurityTokenHandler().WriteToken(token),
+                    expiration = token.ValidTo
+                });
             }
 
             return BadRequest(result.Errors);
