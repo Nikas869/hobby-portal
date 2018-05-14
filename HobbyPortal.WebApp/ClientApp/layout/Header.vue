@@ -9,7 +9,7 @@
             <v-btn flat to='/login'>Login</v-btn>
         </v-toolbar-items>
         <v-toolbar-items v-if="isAuthenticated">
-            <v-btn flat to='/my-clubs'>
+            <v-btn flat to='/clubs/my'>
                 <v-icon dark left>sentiment_satisfied_alt</v-icon>
                 My clubs
             </v-btn>
@@ -31,6 +31,12 @@
                             <v-icon>notifications</v-icon>
                         </v-list-tile-avatar>
                         <v-list-tile-title>Notifications</v-list-tile-title>
+                    </v-list-tile>
+                    <v-list-tile to='/clubs/create'>
+                        <v-list-tile-avatar>
+                            <v-icon>plus</v-icon>
+                        </v-list-tile-avatar>
+                        <v-list-tile-title>Create club</v-list-tile-title>
                     </v-list-tile>
                     <v-divider></v-divider>
                     <v-list-tile @click="logout">

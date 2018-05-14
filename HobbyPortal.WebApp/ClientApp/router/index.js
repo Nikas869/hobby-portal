@@ -14,7 +14,9 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.meta.needAuth && !store.getters.isAuthenticated) {
+  const isNeedAuth = to.matched.some(route => route.meta.needAuth)
+
+  if (isNeedAuth && !store.getters.isAuthenticated) {
     next('/login')
   } else {
     next()

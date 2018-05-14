@@ -3,6 +3,7 @@
     <v-container fluid>
       <img :src="require('../assets/logo.png')">
       <h1>Welcome to Your Vue.js App!</h1>
+      <v-btn to="/clubs">See all clubs</v-btn>
       <h2>Essential Links</h2>
       <ul>
         <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
@@ -34,7 +35,6 @@ export default {
 
 <style scoped>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

@@ -1,5 +1,6 @@
 using HobbyPortal.Infrastructure;
 using HobbyPortal.Infrastructure.Models;
+using HobbyPortal.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -27,9 +28,19 @@ namespace HobbyPortal.WebApp
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("Express")));
 
-            services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultTokenProviders();
+            services.AddIdentity<ApplicationUser, IdentityRole>(options => {
+                options.Password = new PasswordOptions
+                {
+                    RequireDigit = false,
+                    RequiredLength = 0,
+                    RequiredUniqueChars = 0,
+                    RequireLowercase = false,
+                    RequireNonAlphanumeric = false,
+                    RequireUppercase = false
+                };
+            })
+            .AddEntityFrameworkStores<ApplicationDbContext>()
+            .AddDefaultTokenProviders();
 
             services.AddAuthentication(options =>
             {
@@ -54,6 +65,8 @@ namespace HobbyPortal.WebApp
             services.AddMvc();
 
             services.AddCors();
+
+            services.AddTransient(typeof(ClubService));
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

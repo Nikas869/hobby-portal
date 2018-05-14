@@ -11,8 +11,8 @@ using System;
 namespace HobbyPortal.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180510202030_AddedClubModel")]
-    partial class AddedClubModel
+    [Migration("20180513103221_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -119,15 +119,13 @@ namespace HobbyPortal.Infrastructure.Migrations
 
                     b.Property<int>("GroupId");
 
-                    b.Property<int>("UserId");
-
-                    b.Property<string>("UserId1");
+                    b.Property<string>("UserId");
 
                     b.HasKey("GroupUserId");
 
                     b.HasIndex("GroupId");
 
-                    b.HasIndex("UserId1");
+                    b.HasIndex("UserId");
 
                     b.ToTable("GroupUsers");
                 });
@@ -264,7 +262,7 @@ namespace HobbyPortal.Infrastructure.Migrations
 
                     b.HasOne("HobbyPortal.Infrastructure.Models.ApplicationUser", "User")
                         .WithMany("Groups")
-                        .HasForeignKey("UserId1");
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
