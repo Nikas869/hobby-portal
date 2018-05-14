@@ -34,13 +34,16 @@
                     </v-list-tile>
                     <v-list-tile to='/clubs/create'>
                         <v-list-tile-avatar>
-                            <v-icon>plus</v-icon>
+                            <v-icon>add</v-icon>
                         </v-list-tile-avatar>
                         <v-list-tile-title>Create club</v-list-tile-title>
                     </v-list-tile>
                     <v-divider></v-divider>
                     <v-list-tile @click="logout">
-                        <v-list-tile-title class="text-xs-center">Logout</v-list-tile-title>
+                        <v-list-tile-avatar>
+                            <v-icon>exit_to_app</v-icon>
+                        </v-list-tile-avatar>
+                        <v-list-tile-title>Logout</v-list-tile-title>
                     </v-list-tile>
                 </v-list>
             </v-menu>

@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -9,13 +10,17 @@ namespace HobbyPortal.Infrastructure.Models
         public int ClubId { get; set; }
 
         [Required]
-        public string Name { get; set; }
+        [JsonProperty("title")]
+        public string Title { get; set; }
 
         [Required]
+        [JsonProperty("description")]
         public string Description { get; set; }
 
+        [JsonProperty("town")]
         public string Town { get; set; }
 
+        [JsonProperty("address")]
         public string Address { get; set; }
 
         public string OwnerId { get; set; }

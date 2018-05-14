@@ -1,4 +1,4 @@
-import { api } from '../../http/api'
+import api from '../../http/api'
 import router from '../../router'
 
 const state = {
@@ -25,6 +25,7 @@ const mutations = {
     state.token = null
   },
   setExpiration(state, payload) {
+    localStorage.setItem('expiration', payload)
     state.expiration = payload
   }
 }
@@ -57,10 +58,12 @@ const actions = {
       dispatch('logout')
     }, expirationTime)
   },
-  restoreTokenFromStorage({ commit }) {
+  restoreTokenFromStorage({ commit, dispatch }) {
     let token = localStorage.getItem('token')
-    if (token) {
+    let expiration = localStorage.getItem('expiration')
+    if (token && expiration) {
       commit('setToken', token)
+      dispatch('setExpirationTime', new Date(expiration))
     }
   }
 }

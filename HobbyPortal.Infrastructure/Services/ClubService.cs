@@ -1,5 +1,6 @@
 using HobbyPortal.Infrastructure.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -23,15 +24,25 @@ namespace HobbyPortal.Infrastructure.Services
             return context.GroupUsers.Where(groupUser => groupUser.UserId == user.Id).Select(groupUser => groupUser.Group.Club);
         }
 
+        public async Task<IEnumerable<Club>> GetAllClubs()
+        {
+            return await context.Clubs.ToArrayAsync();
+        }
+
         public async Task<Club> CreateClub(string userName, Club club)
         {
             var user = await userManager.FindByNameAsync(userName);
 
             club.Owner = user;
-            var createdClub = await context.Clubs.AddAsync(club);
+            var createdClub = await context.AddAsync(club);
             await context.SaveChangesAsync();
 
             return createdClub.Entity;
+        }
+
+        public Task<Club> GetClub(int id)
+        {
+            return context.Clubs.FindAsync(id);
         }
     }
 }

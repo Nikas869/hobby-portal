@@ -81,10 +81,10 @@ namespace HobbyPortal.Infrastructure.Migrations
                     b.Property<string>("Description")
                         .IsRequired();
 
-                    b.Property<string>("Name")
-                        .IsRequired();
-
                     b.Property<string>("OwnerId");
+
+                    b.Property<string>("Title")
+                        .IsRequired();
 
                     b.Property<string>("Town");
 

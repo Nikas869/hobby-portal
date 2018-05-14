@@ -51,7 +51,6 @@ export const routes = [
   },
   {
     path: '/clubs',
-    name: 'clubs',
     component: AppClubs,
     meta: { needAuth: true },
     children: [

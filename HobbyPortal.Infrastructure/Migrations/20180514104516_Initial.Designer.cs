@@ -11,7 +11,7 @@ using System;
 namespace HobbyPortal.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180513103221_Initial")]
+    [Migration("20180514104516_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -82,10 +82,10 @@ namespace HobbyPortal.Infrastructure.Migrations
                     b.Property<string>("Description")
                         .IsRequired();
 
-                    b.Property<string>("Name")
-                        .IsRequired();
-
                     b.Property<string>("OwnerId");
+
+                    b.Property<string>("Title")
+                        .IsRequired();
 
                     b.Property<string>("Town");
 

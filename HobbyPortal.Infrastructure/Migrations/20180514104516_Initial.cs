@@ -162,8 +162,8 @@ namespace HobbyPortal.Infrastructure.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Address = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: false),
-                    Name = table.Column<string>(nullable: false),
                     OwnerId = table.Column<string>(nullable: true),
+                    Title = table.Column<string>(nullable: false),
                     Town = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
