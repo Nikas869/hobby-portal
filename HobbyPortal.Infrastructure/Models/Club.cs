@@ -10,18 +10,27 @@ namespace HobbyPortal.Infrastructure.Models
         public int ClubId { get; set; }
 
         [Required]
-        [JsonProperty("title")]
-        public string Title { get; set; }
+        [JsonProperty("name")]
+        public string Name { get; set; }
 
         [Required]
         [JsonProperty("description")]
         public string Description { get; set; }
 
-        [JsonProperty("town")]
-        public string Town { get; set; }
+        [Required]
+        [JsonProperty("townId")]
+        public string TownId { get; set; }
+
+        public Town Town { get; set; }
 
         [JsonProperty("address")]
         public string Address { get; set; }
+
+        [Required]
+        [JsonProperty("categoryId")]
+        public int CategoryId { get; set; }
+
+        public Category Category { get; set; }
 
         public string OwnerId { get; set; }
 

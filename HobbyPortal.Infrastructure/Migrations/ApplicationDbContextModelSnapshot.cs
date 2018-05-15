@@ -27,6 +27,8 @@ namespace HobbyPortal.Infrastructure.Migrations
 
                     b.Property<int>("AccessFailedCount");
 
+                    b.Property<DateTime>("Birthday");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
@@ -34,6 +36,12 @@ namespace HobbyPortal.Infrastructure.Migrations
                         .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired();
+
+                    b.Property<string>("LastName")
+                        .IsRequired();
 
                     b.Property<bool>("LockoutEnabled");
 
@@ -46,6 +54,9 @@ namespace HobbyPortal.Infrastructure.Migrations
                         .HasMaxLength(256);
 
                     b.Property<string>("PasswordHash");
+
+                    b.Property<string>("Phone")
+                        .IsRequired();
 
                     b.Property<string>("PhoneNumber");
 
@@ -71,6 +82,19 @@ namespace HobbyPortal.Infrastructure.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("HobbyPortal.Infrastructure.Models.Category", b =>
+                {
+                    b.Property<int>("CategoryId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.HasKey("CategoryId");
+
+                    b.ToTable("Category");
+                });
+
             modelBuilder.Entity("HobbyPortal.Infrastructure.Models.Club", b =>
                 {
                     b.Property<int>("ClubId")
@@ -78,19 +102,28 @@ namespace HobbyPortal.Infrastructure.Migrations
 
                     b.Property<string>("Address");
 
+                    b.Property<int>("CategoryId");
+
                     b.Property<string>("Description")
+                        .IsRequired();
+
+                    b.Property<string>("Name")
                         .IsRequired();
 
                     b.Property<string>("OwnerId");
 
-                    b.Property<string>("Title")
+                    b.Property<string>("TownId")
                         .IsRequired();
 
-                    b.Property<string>("Town");
+                    b.Property<int?>("TownId1");
 
                     b.HasKey("ClubId");
 
+                    b.HasIndex("CategoryId");
+
                     b.HasIndex("OwnerId");
+
+                    b.HasIndex("TownId1");
 
                     b.ToTable("Clubs");
                 });
@@ -102,7 +135,17 @@ namespace HobbyPortal.Infrastructure.Migrations
 
                     b.Property<int>("ClubId");
 
-                    b.Property<string>("Instructor");
+                    b.Property<string>("Instructor")
+                        .IsRequired();
+
+                    b.Property<string>("InstructorContacts")
+                        .IsRequired();
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.Property<string>("Place")
+                        .IsRequired();
 
                     b.HasKey("GroupId");
 
@@ -127,6 +170,19 @@ namespace HobbyPortal.Infrastructure.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("GroupUsers");
+                });
+
+            modelBuilder.Entity("HobbyPortal.Infrastructure.Models.Town", b =>
+                {
+                    b.Property<int>("TownId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.HasKey("TownId");
+
+                    b.ToTable("Town");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -239,9 +295,18 @@ namespace HobbyPortal.Infrastructure.Migrations
 
             modelBuilder.Entity("HobbyPortal.Infrastructure.Models.Club", b =>
                 {
+                    b.HasOne("HobbyPortal.Infrastructure.Models.Category", "Category")
+                        .WithMany("Clubs")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("HobbyPortal.Infrastructure.Models.ApplicationUser", "Owner")
                         .WithMany("Clubs")
                         .HasForeignKey("OwnerId");
+
+                    b.HasOne("HobbyPortal.Infrastructure.Models.Town", "Town")
+                        .WithMany("Clubs")
+                        .HasForeignKey("TownId1");
                 });
 
             modelBuilder.Entity("HobbyPortal.Infrastructure.Models.Group", b =>
