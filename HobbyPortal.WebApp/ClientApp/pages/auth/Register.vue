@@ -8,9 +8,10 @@
               <v-toolbar-title>Реєстрація</v-toolbar-title>
             </v-toolbar>
             <v-card-text>
-              <v-form>
+              <v-form ref="form" v-model="valid" lazy-validation>
                 <v-text-field
                   v-model="firstName"
+                  :rules="requiredFieldRule"
                   color="teal"
                   prepend-icon="account_circle"
                   label="Ім'я"
@@ -18,6 +19,7 @@
                 </v-text-field>
                 <v-text-field
                   v-model="lastName"
+                  :rules="requiredFieldRule"
                   color="teal"
                   prepend-icon="account_circle"
                   label="Прізвище"
@@ -25,6 +27,7 @@
                 </v-text-field>
                 <v-text-field
                   v-model="phone"
+                  :rules="requiredFieldRule"
                   mask="phone"
                   color="teal"
                   prepend-icon="phone"
@@ -45,6 +48,7 @@
                   <v-text-field
                     slot="activator"
                     v-model="date"
+                    :rules="requiredFieldRule"
                     label="Дата народження"
                     prepend-icon="event"
                     color="teal"
@@ -76,7 +80,8 @@
                 >
                 </v-select>
                 <v-text-field 
-                  v-model="email" 
+                  v-model="email"
+                  :rules="emailRules"
                   color="teal" 
                   prepend-icon="mail" 
                   name="email" 
@@ -85,22 +90,16 @@
                   required>
                 </v-text-field>
                 <v-text-field 
-                  v-model="password" 
+                  v-model="password"
+                  :rules="requiredFieldRule"
                   color="teal" 
                   prepend-icon="lock" 
                   name="password" 
                   label="Пароль" 
                   type="password">
                 </v-text-field>
-                <v-text-field 
-                  v-model="confirmPassword" 
-                  color="teal" 
-                  prepend-icon="lock" 
-                  name="password" 
-                  label="Підтвердження паролю" 
-                  type="password">
-                </v-text-field>
               </v-form>
+              <p v-if="errors">{{ errors }}</p>
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
@@ -123,18 +122,29 @@ export default {
   },
   data() {
     return {
+      menu: false,
+      valid: true,
+      errors: null,
+
       loading: false,
       search: null,
       cities: [],
       city: [],
+
       firstName: null,
       lastName: null,
       phone: null,
       email: null,
       password: null,
-      confirmPassword: null,
       date: null,
-      menu: false
+
+      requiredFieldRule: [v => !!v || "Обов'язкове поле"],
+      emailRules: [
+        v => !!v || "Обов'язкове поле",
+        v =>
+          /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
+          'Вкажіть правильну електронну адресу'
+      ]
     }
   },
   watch: {
@@ -147,14 +157,25 @@ export default {
   },
   methods: {
     onRegister() {
-      this.$store.dispatch('register', {
-        email: this.email,
-        password: this.password,
-        firstName: this.firstName,
-        lastName: this.lastName,
-        birthday: new Date(this.date).toISOString(),
-        phone: this.phone
-      })
+      if (this.$refs.form.validate()) {
+        this.$store
+          .dispatch('register', {
+            email: this.email,
+            password: this.password,
+            firstName: this.firstName,
+            lastName: this.lastName,
+            birthday: new Date(this.date).toISOString(),
+            phone: this.phone
+          })
+          .then(response => {
+            this.$router.push('/my-clubs')
+          })
+          .catch(error => {
+            if (error.response.data) {
+              this.errors = error.response.data
+            }
+          })
+      }
     },
     findCity(filter) {
       this.loading = true

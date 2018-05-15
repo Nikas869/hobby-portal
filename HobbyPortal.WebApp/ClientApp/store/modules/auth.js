@@ -32,10 +32,17 @@ const mutations = {
 
 const actions = {
   register({ commit, dispatch }, payload) {
-    api.post('/auth/register', payload).then(response => {
-      commit('setToken', response.data.token)
-      dispatch('setExpirationTime', response.data.expiration)
-      router.push('/my-clubs')
+    return new Promise((resolve, reject) => {
+      api
+        .post('/auth/register', payload)
+        .then(response => {
+          commit('setToken', response.data.token)
+          dispatch('setExpirationTime', response.data.expiration)
+          resolve(response)
+        })
+        .catch(error => {
+          reject(error)
+        })
     })
   },
   login({ commit, dispatch }, payload) {

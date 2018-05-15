@@ -45,7 +45,7 @@ namespace HobbyPortal.WebApp.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest();
+                return BadRequest(ModelState);
             }
 
             var user = new ApplicationUser(model.Email, model.FirstName, model.LastName, model.Birthday, model.Phone);
