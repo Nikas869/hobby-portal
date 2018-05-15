@@ -14,6 +14,10 @@ namespace HobbyPortal.Infrastructure
 
         public DbSet<Group> Groups { get; set; }
 
+        public DbSet<Category> Categories { get; set; }
+
+        public DbSet<City> Cities { get; set; }
+
         public DbSet<GroupUser> GroupUsers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)

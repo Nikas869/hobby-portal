@@ -24,6 +24,22 @@ namespace HobbyPortal.Infrastructure.Models
         [JsonProperty("phone")]
         public string Phone { get; set; }
 
+        public ApplicationUser(string email, string firstName, string lastName, DateTime birthday, string phone) : base()
+        {
+            UserName = email;
+            Email = email;
+            FirstName = firstName;
+            LastName = lastName;
+            Birthday = birthday;
+            Phone = phone;
+        }
+
+        protected ApplicationUser()
+        {
+            Clubs = new List<Club>();
+            Groups = new List<GroupUser>();
+        }
+
         public ICollection<Club> Clubs { get; set; }
 
         public ICollection<GroupUser> Groups { get; set; }

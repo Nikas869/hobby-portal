@@ -18,10 +18,10 @@ namespace HobbyPortal.Infrastructure.Models
         public string Description { get; set; }
 
         [Required]
-        [JsonProperty("townId")]
-        public string TownId { get; set; }
+        [JsonProperty("cityId")]
+        public string CityId { get; set; }
 
-        public Town Town { get; set; }
+        public City City { get; set; }
 
         [JsonProperty("address")]
         public string Address { get; set; }

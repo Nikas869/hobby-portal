@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using System;
 using System.Text;
 
 namespace HobbyPortal.WebApp
@@ -28,7 +29,8 @@ namespace HobbyPortal.WebApp
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("Express")));
 
-            services.AddIdentity<ApplicationUser, IdentityRole>(options => {
+            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            {
                 options.Password = new PasswordOptions
                 {
                     RequireDigit = false,
@@ -67,6 +69,7 @@ namespace HobbyPortal.WebApp
             services.AddCors();
 
             services.AddTransient(typeof(ClubService));
+            services.AddTransient(typeof(MiscDataService));
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -103,6 +106,19 @@ namespace HobbyPortal.WebApp
                     name: "spa-fallback",
                     defaults: new { controller = "Home", action = "Index" });
             });
+
+            using (var scope = app.ApplicationServices.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                try
+                {
+                    var context = services.GetRequiredService<ApplicationDbContext>();
+                    DbInitializer.Initialize(context, env);
+                }
+                catch (Exception)
+                {
+                }
+            }
         }
     }
 }

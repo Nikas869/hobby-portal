@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace HobbyPortal.WebApp.ViewModels
@@ -14,5 +15,21 @@ namespace HobbyPortal.WebApp.ViewModels
         [DataType(DataType.Password)]
         [JsonProperty("password")]
         public string Password { get; set; }
+
+        [Required]
+        [JsonProperty("firstName")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [JsonProperty("lastName")]
+        public string LastName { get; set; }
+
+        [Required]
+        [JsonProperty("birthday")]
+        public DateTime Birthday { get; set; }
+
+        [Required]
+        [JsonProperty("phone")]
+        public string Phone { get; set; }
     }
 }

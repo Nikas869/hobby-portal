@@ -53,7 +53,7 @@ namespace HobbyPortal.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Category",
+                name: "Categories",
                 columns: table => new
                 {
                     CategoryId = table.Column<int>(nullable: false)
@@ -62,20 +62,20 @@ namespace HobbyPortal.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Category", x => x.CategoryId);
+                    table.PrimaryKey("PK_Categories", x => x.CategoryId);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Town",
+                name: "Cities",
                 columns: table => new
                 {
-                    TownId = table.Column<int>(nullable: false)
+                    CityId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Town", x => x.TownId);
+                    table.PrimaryKey("PK_Cities", x => x.CityId);
                 });
 
             migrationBuilder.CreateTable(
@@ -192,32 +192,32 @@ namespace HobbyPortal.Infrastructure.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Address = table.Column<string>(nullable: true),
                     CategoryId = table.Column<int>(nullable: false),
+                    CityId = table.Column<string>(nullable: false),
+                    CityId1 = table.Column<int>(nullable: true),
                     Description = table.Column<string>(nullable: false),
                     Name = table.Column<string>(nullable: false),
-                    OwnerId = table.Column<string>(nullable: true),
-                    TownId = table.Column<string>(nullable: false),
-                    TownId1 = table.Column<int>(nullable: true)
+                    OwnerId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Clubs", x => x.ClubId);
                     table.ForeignKey(
-                        name: "FK_Clubs_Category_CategoryId",
+                        name: "FK_Clubs_Categories_CategoryId",
                         column: x => x.CategoryId,
-                        principalTable: "Category",
+                        principalTable: "Categories",
                         principalColumn: "CategoryId",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Clubs_Cities_CityId1",
+                        column: x => x.CityId1,
+                        principalTable: "Cities",
+                        principalColumn: "CityId",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Clubs_AspNetUsers_OwnerId",
                         column: x => x.OwnerId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Clubs_Town_TownId1",
-                        column: x => x.TownId1,
-                        principalTable: "Town",
-                        principalColumn: "TownId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -315,14 +315,14 @@ namespace HobbyPortal.Infrastructure.Migrations
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Clubs_CityId1",
+                table: "Clubs",
+                column: "CityId1");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Clubs_OwnerId",
                 table: "Clubs",
                 column: "OwnerId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Clubs_TownId1",
-                table: "Clubs",
-                column: "TownId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Groups_ClubId",
@@ -370,13 +370,13 @@ namespace HobbyPortal.Infrastructure.Migrations
                 name: "Clubs");
 
             migrationBuilder.DropTable(
-                name: "Category");
+                name: "Categories");
+
+            migrationBuilder.DropTable(
+                name: "Cities");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
-                name: "Town");
         }
     }
 }
