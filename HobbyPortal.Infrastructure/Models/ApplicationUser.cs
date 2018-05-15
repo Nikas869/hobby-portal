@@ -8,22 +8,6 @@ namespace HobbyPortal.Infrastructure.Models
 {
     public class ApplicationUser : IdentityUser
     {
-        [Required]
-        [JsonProperty("firstName")]
-        public string FirstName { get; set; }
-
-        [Required]
-        [JsonProperty("lastName")]
-        public string LastName { get; set; }
-
-        [Required]
-        [JsonProperty("birthday")]
-        public DateTime Birthday { get; set; }
-
-        [Required]
-        [JsonProperty("phone")]
-        public string Phone { get; set; }
-
         public ApplicationUser(string email, string firstName, string lastName, DateTime birthday, string phone) : base()
         {
             UserName = email;
@@ -39,6 +23,22 @@ namespace HobbyPortal.Infrastructure.Models
             Clubs = new List<Club>();
             Groups = new List<GroupUser>();
         }
+
+        [Required]
+        [JsonProperty("firstName")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [JsonProperty("lastName")]
+        public string LastName { get; set; }
+
+        [Required]
+        [JsonProperty("birthday")]
+        public DateTime Birthday { get; set; }
+
+        [Required]
+        [JsonProperty("phone")]
+        public string Phone { get; set; }
 
         public ICollection<Club> Clubs { get; set; }
 
