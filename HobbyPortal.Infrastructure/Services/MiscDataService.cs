@@ -19,5 +19,10 @@ namespace HobbyPortal.Infrastructure.Services
         {
             return await context.Cities.Where(city => city.Name.ToLowerInvariant().Contains(filter.ToLowerInvariant())).Take(10).ToArrayAsync();
         }
+
+        public async Task<IEnumerable<Category>> GetCategories(string filter)
+        {
+            return await context.Categories.Where(category => category.Name.ToLowerInvariant().Contains(filter.ToLowerInvariant())).Take(10).ToArrayAsync();
+        }
     }
 }

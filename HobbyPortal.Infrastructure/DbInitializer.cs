@@ -13,15 +13,24 @@ namespace HobbyPortal.Infrastructure
         {
             context.Database.EnsureCreated();
 
-            if (context.Cities.Any())
+            if (!context.Cities.Any())
             {
-                return;
+                var file = Path.Combine(hostingEnvironment.ContentRootPath, "Data", "cities.json");
+                var cities = JsonConvert.DeserializeObject<CitiesList>(File.ReadAllText(file));
+
+                context.Cities.AddRange(cities.Cities.Select(city => new City(city.Name)));
             }
 
-            var file = Path.Combine(hostingEnvironment.ContentRootPath, "Data", "cities.json");
-            var cities = JsonConvert.DeserializeObject<CitiesList>(File.ReadAllText(file));
+            if (!context.Categories.Any())
+            {
+                context.Categories.AddRange(new[]
+                {
+                    new Category("Спорт"),
+                    new Category("Музика"),
+                    new Category("Малювання")
+                });
+            }
 
-            context.Cities.AddRange(cities.Cities.Select(city => new City(city.Name)));
             context.SaveChanges();
         }
 

@@ -17,11 +17,9 @@ namespace HobbyPortal.Infrastructure.Models
         }
 
         [Key]
-        [JsonProperty("cityId")]
         public int CityId { get; set; }
 
         [Required]
-        [JsonProperty("city")]
         public string Name { get; set; }
 
         [JsonIgnore]

@@ -1,9 +1,8 @@
 <template>
-    <v-container fluid>
-    </v-container>
+  <v-container fluid>
+  </v-container>
 </template>
 
 <script>
-export default {
-}
+export default {}
 </script>

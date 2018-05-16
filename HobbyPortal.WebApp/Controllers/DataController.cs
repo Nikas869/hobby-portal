@@ -25,5 +25,12 @@ namespace HobbyPortal.WebApp.Controllers
         {
             return await miscDataService.GetCities(filter);
         }
+
+        [Route("categories")]
+        [HttpGet]
+        public async Task<IEnumerable<Category>> GetCategories(string filter)
+        {
+            return await miscDataService.GetCategories(filter);
+        }
     }
 }

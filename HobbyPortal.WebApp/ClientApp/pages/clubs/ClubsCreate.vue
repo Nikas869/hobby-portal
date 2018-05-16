@@ -5,62 +5,76 @@
         <v-card>
           <v-card-title>
             <h1 class="headline">Створити новий клуб</h1>
-              </v-card-title>
-            </v-card>
-          </v-flex>
-          <v-spacer></v-spacer>
-          <v-flex sm6 offset-sm3>
-            <v-form ref="form" v-model="valid" lazy-validation>
-              <v-card>
-                <v-card-text>
-                  <div>
-                    <v-text-field 
-                      v-model="title"
-                      :rules="titleRules"
-                      label="Назва"
-                      required>
-                    </v-text-field>
-                    <v-text-field 
-                      v-model="description"
-                      :rules="descriptionsRules"
-                      multi-line
-                      label="Опис"
-                      required>
-                    </v-text-field>                                
-                    <v-select
-                      :loading="loading"
-                      :items="cities"
-                      :rules="[() => city !== null || 'Потрібно вибрати місто!']"
-                      :search-input.sync="search"
-                      v-model="city"
-                      item-text="city"
-                      item-value="cityId"
-                      label="Місто"
-                      autocomplete
-                      cache-items
-                      required
-                      prepend-icon="map">
-                    </v-select>
-                    <v-text-field
-                      v-model="address"
-                      :rules="addressRules"
-                      label="Адреса"
-                      required>
-                    </v-text-field>
-                    <v-btn
-                      @click="submit"
-                      dark>
-                      Submit
-                    </v-btn>
-                    <v-btn
-                      @click="clear" 
-                      flat>
-                      Clear
-                    </v-btn>
-                  </div>
-                </v-card-text>
-              <v-card-actions>
-            </v-card-actions>
+          </v-card-title>
+        </v-card>
+      </v-flex>
+      <v-spacer></v-spacer>
+      <v-flex sm6 offset-sm3>
+        <v-form ref="form" v-model="valid" lazy-validation>
+          <v-card>
+            <v-card-text>
+              <div>
+                <v-text-field
+                  v-model="name"
+                  :rules="requiredFieldRule"
+                  label="Назва"
+                  required>
+                </v-text-field>
+                <v-text-field
+                  v-model="description"
+                  :rules="descriptionsRules"
+                  multi-line
+                  label="Опис"
+                  required>
+                </v-text-field>
+                <v-select
+                  :loading="cityLoading"
+                  :items="cities"
+                  :rules="requiredFieldRule"
+                  :search-input.sync="searchCity"
+                  v-model="city"
+                  item-text="name"
+                  item-value="cityId"
+                  label="Місто"
+                  autocomplete
+                  cache-items
+                  required
+                  prepend-icon="map">
+                </v-select>
+                <v-select
+                  :loading="categoryLoading"
+                  :items="categories"
+                  :rules="requiredFieldRule"
+                  :search-input.sync="searchCategory"
+                  v-model="category"
+                  item-text="name"
+                  item-value="categoryId"
+                  label="Категорія"
+                  autocomplete
+                  cache-items
+                  required
+                  prepend-icon="category">
+                </v-select>
+                <v-text-field
+                  v-model="address"
+                  :rules="requiredFieldRule"
+                  label="Адреса"
+                  required>
+                </v-text-field>
+                <v-btn
+                  @click="submit"
+                  dark
+                  color="primary">
+                  Створити
+                </v-btn>
+                <v-btn
+                  @click="clear"
+                  flat>
+                  Очистити
+                </v-btn>
+              </div>
+            </v-card-text>            
+            <v-progress-linear v-if="formLoading" :indeterminate="true"></v-progress-linear>
           </v-card>
         </v-form>
       </v-flex>
@@ -74,54 +88,61 @@ import api from '../../http/auth-api'
 export default {
   data() {
     return {
-      valid: true,
-      title: '',
-      titleRules: [v => !!v || 'Title is required'],
-      description: '',
+      name: null,
+      description: null,
       descriptionsRules: [
-        v => !!v || 'Description is required',
-        v =>
-          (v && v.length >= 10) || 'Description must be at least 10 characters'
+        v => !!v || "Обов'язкове поле",
+        v => (v && v.length >= 10) || 'Має бути не менше 10 симоволів'
       ],
-      town: '',
-      townRules: [v => !!v || 'Town is required'],
-      address: '',
-      addressRules: [v => !!v || 'Address is required'],
+      category: null,
+      city: null,
+      address: null,
+      requiredFieldRule: [v => !!v || "Обов'язкове поле"],
 
-      loading: false,
-      search: null,
+      valid: true,
+      cityLoading: false,
+      categoryLoading: false,
+      formLoading: false,
+      searchCity: null,
+      searchCategory: null,
       cities: [],
-      city: []
+      categories: []
     }
   },
   watch: {
-    search(val) {
+    searchCity(val) {
       val && this.findCity(val)
+    },
+    searchCategory(val) {
+      val && this.findCategory(val)
     }
   },
   methods: {
     submit() {
       if (this.$refs.form.validate()) {
+        this.formLoading = true
         api
           .post('/clubs', {
-            title: this.title,
+            name: this.name,
             description: this.description,
-            town: this.town,
+            cityId: this.city,
+            categoryId: this.category,
             address: this.address
           })
           .then(response => {
-            alert(response.data.id)
+            this.$router.push({ path: '/', params: { id: response.data } })
           })
           .catch(response => {
-            alert(response)
+            console.log(response)
           })
+          .then(() => (this.formLoading = false))
       }
     },
     clear() {
       this.$refs.form.reset()
     },
     findCity(filter) {
-      this.loading = true
+      this.cityLoading = true
       api
         .get('/data/cities', { params: { filter: filter } })
         .then(response => {
@@ -131,7 +152,21 @@ export default {
           console.log(error)
         })
         .then(() => {
-          this.loading = false
+          this.cityLoading = false
+        })
+    },
+    findCategory(filter) {
+      this.categoryLoading = true
+      api
+        .get('/data/categories', { params: { filter: filter } })
+        .then(response => {
+          this.categories = response.data
+        })
+        .catch(error => {
+          console.log(error)
+        })
+        .then(() => {
+          this.categoryLoading = false
         })
     }
   }
