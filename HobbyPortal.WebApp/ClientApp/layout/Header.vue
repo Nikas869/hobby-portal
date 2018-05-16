@@ -1,5 +1,5 @@
 <template>
-    <v-toolbar app dark color="teal">
+    <v-toolbar app dark color="primary">
         <v-toolbar-items>
             <v-btn flat to="/">Головна</v-btn>
         </v-toolbar-items>

@@ -4,7 +4,7 @@
       <v-layout align-center justify-center>
         <v-flex xs12 sm8 md4>
           <v-card class="elevation-12">
-            <v-toolbar dark color="teal">
+            <v-toolbar dark color="primary">
               <v-toolbar-title>Форма реєстрації</v-toolbar-title>
             </v-toolbar>
             <v-card-text>
@@ -12,7 +12,6 @@
                 <v-text-field
                   v-model="firstName"
                   :rules="requiredFieldRule"
-                  color="teal"
                   prepend-icon="account_circle"
                   label="Ім'я"
                   required>
@@ -20,7 +19,6 @@
                 <v-text-field
                   v-model="lastName"
                   :rules="requiredFieldRule"
-                  color="teal"
                   prepend-icon="account_circle"
                   label="Прізвище"
                   required>                  
@@ -29,7 +27,6 @@
                   v-model="phone"
                   :rules="requiredFieldRule"
                   mask="phone"
-                  color="teal"
                   prepend-icon="phone"
                   label="Телефон"
                   required>
@@ -51,7 +48,6 @@
                     :rules="requiredFieldRule"
                     label="Дата народження"
                     prepend-icon="event"
-                    color="teal"
                     readonly>
                   </v-text-field>
                   <v-date-picker
@@ -59,30 +55,12 @@
                     v-model="date"
                     :max="new Date().toISOString().substr(0, 10)"
                     min="1900-01-01"
-                    color="teal"
                     @change="save">
                   </v-date-picker>
                 </v-menu>
-                <v-select
-                  :loading="loading"
-                  :items="cities"
-                  :rules="[() => city !== null || 'Потрібно вибрати місто!']"
-                  :search-input.sync="search"
-                  v-model="city"
-                  item-text="city"
-                  item-value="cityId"
-                  color="teal"
-                  label="Місто"
-                  autocomplete
-                  cache-items
-                  required
-                  prepend-icon="map"
-                >
-                </v-select>
                 <v-text-field 
                   v-model="email"
                   :rules="emailRules"
-                  color="teal" 
                   prepend-icon="mail" 
                   name="email" 
                   label="Електронна пошта" 
@@ -92,7 +70,6 @@
                 <v-text-field 
                   v-model="password"
                   :rules="requiredFieldRule"
-                  color="teal" 
                   prepend-icon="lock" 
                   name="password" 
                   label="Пароль" 
@@ -103,7 +80,11 @@
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn dark @click="onRegister" color="teal">Зареєструватися</v-btn>
+              <v-btn 
+                color="primary" 
+                @click="onRegister">
+                Зареєструватися
+              </v-btn>
             </v-card-actions>
           </v-card>
         </v-flex>
@@ -126,11 +107,6 @@ export default {
       valid: true,
       errors: null,
 
-      loading: false,
-      search: null,
-      cities: [],
-      city: [],
-
       firstName: null,
       lastName: null,
       phone: null,
@@ -148,9 +124,6 @@ export default {
     }
   },
   watch: {
-    search(val) {
-      val && this.findCity(val)
-    },
     menu(val) {
       val && this.$nextTick(() => (this.$refs.picker.activePicker = 'YEAR'))
     }
@@ -176,20 +149,6 @@ export default {
             }
           })
       }
-    },
-    findCity(filter) {
-      this.loading = true
-      api
-        .get('/auth/cities', { params: { filter: filter } })
-        .then(response => {
-          this.cities = response.data
-        })
-        .catch(error => {
-          console.log(error)
-        })
-        .then(() => {
-          this.loading = false
-        })
     },
     save(date) {
       this.$refs.menu.save(date)
