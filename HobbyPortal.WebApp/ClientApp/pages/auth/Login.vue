@@ -5,17 +5,33 @@
         <v-flex xs12 sm8 md4>
           <v-card class="elevation-12">
             <v-toolbar dark color="teal">
-              <v-toolbar-title>Login form</v-toolbar-title>
+              <v-toolbar-title>Форма авторизації</v-toolbar-title>
             </v-toolbar>
             <v-card-text>
               <v-form>
-                <v-text-field v-model="email" color="teal" prepend-icon="mail" name="email" label="Email" type="text"></v-text-field>
-                <v-text-field v-model="password" color="teal" prepend-icon="lock" name="password" label="Password" type="password"></v-text-field>
+                <v-text-field 
+                  v-model="email" 
+                  color="teal" 
+                  prepend-icon="mail" 
+                  name="email" 
+                  label="Електронная пошта" 
+                  type="text"
+                  required>
+                </v-text-field>
+                <v-text-field 
+                  v-model="password" 
+                  color="teal" 
+                  prepend-icon="lock" 
+                  name="password" 
+                  label="Пароль" 
+                  type="password"
+                  required>
+                </v-text-field>
               </v-form>
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn dark @click="onLogin" color="teal">Login</v-btn>
+              <v-btn dark @click="onLogin" color="teal">Авторизуватися</v-btn>
             </v-card-actions>
           </v-card>
         </v-flex>

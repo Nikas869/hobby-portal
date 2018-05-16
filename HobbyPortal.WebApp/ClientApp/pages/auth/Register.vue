@@ -5,7 +5,7 @@
         <v-flex xs12 sm8 md4>
           <v-card class="elevation-12">
             <v-toolbar dark color="teal">
-              <v-toolbar-title>Реєстрація</v-toolbar-title>
+              <v-toolbar-title>Форма реєстрації</v-toolbar-title>
             </v-toolbar>
             <v-card-text>
               <v-form ref="form" v-model="valid" lazy-validation>

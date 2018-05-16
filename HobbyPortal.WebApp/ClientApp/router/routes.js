@@ -15,13 +15,13 @@ export const routes = [
     path: '',
     name: 'index',
     component: AppHome,
-    meta: { title: 'Home' }
+    meta: { title: 'Головна' }
   },
   {
     path: '/login',
     name: 'login',
     component: AppLogin,
-    meta: { title: 'Login' },
+    meta: { title: 'Авторизація' },
     beforeEnter: (to, from, next) => {
       if (store.getters.isAuthenticated) {
         next('/my-clubs')
@@ -34,7 +34,7 @@ export const routes = [
     path: '/register',
     name: 'register',
     component: AppRegister,
-    meta: { title: 'Register' },
+    meta: { title: 'Реєстрація' },
     beforeEnter: (to, from, next) => {
       if (store.getters.isAuthenticated) {
         next('/login')
@@ -57,17 +57,17 @@ export const routes = [
       {
         path: '',
         component: AppClubsList,
-        meta: { title: 'Clubs' }
+        meta: { title: 'Усі клуби' }
       },
       {
         path: 'my',
         component: AppMyClubs,
-        meta: { title: 'My clubs' }
+        meta: { title: 'Мої клуби' }
       },
       {
         path: 'create',
         component: AppCreateClub,
-        meta: { title: 'New club' }
+        meta: { title: 'Новий клуб' }
       }
     ]
   },
@@ -75,7 +75,7 @@ export const routes = [
     path: '/notifications',
     name: 'notifications',
     component: AppNotifications,
-    meta: { title: 'Notifications', needAuth: true }
+    meta: { title: 'Сповіщення', needAuth: true }
   },
   {
     path: '/*',
