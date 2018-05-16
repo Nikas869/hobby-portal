@@ -48,7 +48,8 @@
                     :rules="requiredFieldRule"
                     label="Дата народження"
                     prepend-icon="event"
-                    readonly>
+                    readonly
+                    required>
                   </v-text-field>
                   <v-date-picker
                     ref="picker"
@@ -61,8 +62,7 @@
                 <v-text-field 
                   v-model="email"
                   :rules="emailRules"
-                  prepend-icon="mail" 
-                  name="email" 
+                  prepend-icon="mail"
                   label="Електронна пошта" 
                   type="text"
                   required>
@@ -70,10 +70,10 @@
                 <v-text-field 
                   v-model="password"
                   :rules="requiredFieldRule"
-                  prepend-icon="lock" 
-                  name="password" 
+                  prepend-icon="lock"
                   label="Пароль" 
-                  type="password">
+                  type="password"
+                  required>
                 </v-text-field>
               </v-form>
               <p v-if="errors">{{ errors }}</p>

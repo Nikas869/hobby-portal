@@ -8,9 +8,11 @@
               <v-toolbar-title>Форма авторизації</v-toolbar-title>
             </v-toolbar>
             <v-card-text>
-              <v-form>
-                <v-text-field 
+              <v-form ref="form" v-model="valid" lazy-validation>
+                <v-text-field
                   v-model="email"
+                  :rules="emailRules"
+                  @input="clearErrors"
                   prepend-icon="mail" 
                   name="email" 
                   label="Електронная пошта" 
@@ -19,6 +21,8 @@
                 </v-text-field>
                 <v-text-field 
                   v-model="password"
+                  :rules="requiredFieldRule"
+                  @input="clearErrors"
                   prepend-icon="lock" 
                   name="password" 
                   label="Пароль" 
@@ -26,6 +30,7 @@
                   required>
                 </v-text-field>
               </v-form>
+              <p v-if="errors">{{ errors }}</p>
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
@@ -35,6 +40,7 @@
                 Авторизуватися
               </v-btn>
             </v-card-actions>
+            <v-progress-linear v-if="loading" :indeterminate="true"></v-progress-linear>
           </v-card>
         </v-flex>
       </v-layout>
@@ -52,15 +58,41 @@ export default {
   data() {
     return {
       email: null,
-      password: null
+      emailRules: [
+        v => !!v || "Обов'язкове поле",
+        v =>
+          /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
+          'Вкажіть правильну електронну адресу'
+      ],
+      password: null,
+      requiredFieldRule: [v => !!v || "Обов'язкове поле"],
+      errors: null,
+      valid: true,
+      loading: false
     }
   },
   methods: {
     onLogin() {
-      this.$store.dispatch('login', {
-        email: this.email,
-        password: this.password
-      })
+      if (this.$refs.form.validate()) {
+        this.loading = true
+        this.$store
+          .dispatch('login', {
+            email: this.email,
+            password: this.password
+          })
+          .then(response => this.$router.push('/my-clubs'))
+          .catch(error => {
+            if (error.response.status === 401) {
+              this.errors = 'Неправильна адреса чи пароль'
+            } else {
+              this.errors = 'Виникла помилка, спробуйте пізніше'
+            }
+          })
+          .then(() => (this.loading = false))
+      }
+    },
+    clearErrors() {
+      this.errors = null
     }
   }
 }

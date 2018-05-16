@@ -85,7 +85,7 @@ namespace HobbyPortal.WebApp.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest();
+                return BadRequest(ModelState);
             }
 
             var user = await userManager.FindByNameAsync(model.Email);

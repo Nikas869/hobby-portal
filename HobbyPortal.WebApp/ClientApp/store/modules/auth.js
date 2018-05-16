@@ -40,16 +40,21 @@ const actions = {
           dispatch('setExpirationTime', response.data.expiration)
           resolve(response)
         })
-        .catch(error => {
-          reject(error)
-        })
+        .catch(error => reject(error))
     })
   },
   login({ commit, dispatch }, payload) {
-    api.post('/auth/login', payload).then(response => {
-      commit('setToken', response.data.token)
-      dispatch('setExpirationTime', response.data.expiration)
-      router.push('/my-clubs')
+    return new Promise((resolve, reject) => {
+      api
+        .post('/auth/login', payload)
+        .then(response => {
+          commit('setToken', response.data.token)
+          dispatch('setExpirationTime', response.data.expiration)
+          resolve(response)
+        })
+        .catch(error => {
+          reject(error)
+        })
     })
   },
   logout({ commit }) {
