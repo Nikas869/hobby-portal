@@ -33,6 +33,11 @@
               <p v-if="errors">{{ errors }}</p>
             </v-card-text>
             <v-card-actions>
+              <v-btn
+                @click="back"
+                flat>
+                Повернутися
+              </v-btn>
               <v-spacer></v-spacer>
               <v-btn 
                 @click="onLogin"
@@ -93,6 +98,9 @@ export default {
     },
     clearErrors() {
       this.errors = null
+    },
+    back() {
+      this.$router.go(-1)
     }
   }
 }

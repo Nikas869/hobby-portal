@@ -79,6 +79,11 @@
               <p v-if="errors">{{ errors }}</p>
             </v-card-text>
             <v-card-actions>
+              <v-btn
+                @click="back"
+                flat>
+                Повернутися
+              </v-btn>
               <v-spacer></v-spacer>
               <v-btn 
                 color="primary" 
@@ -152,6 +157,9 @@ export default {
     },
     save(date) {
       this.$refs.menu.save(date)
+    },
+    back() {
+      this.$router.go(-1)
     }
   }
 }
