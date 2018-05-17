@@ -91,6 +91,7 @@
                 Зареєструватися
               </v-btn>
             </v-card-actions>
+            <v-progress-linear v-if="loading" :indeterminate="true"></v-progress-linear>
           </v-card>
         </v-flex>
       </v-layout>
@@ -111,6 +112,7 @@ export default {
       menu: false,
       valid: true,
       errors: null,
+      loading: false,
 
       firstName: null,
       lastName: null,
@@ -136,6 +138,7 @@ export default {
   methods: {
     onRegister() {
       if (this.$refs.form.validate()) {
+        this.loading = true
         this.$store
           .dispatch('register', {
             email: this.email,
@@ -153,6 +156,7 @@ export default {
               this.errors = error.response.data
             }
           })
+          .then(() => (this.loading = false))
       }
     },
     save(date) {
