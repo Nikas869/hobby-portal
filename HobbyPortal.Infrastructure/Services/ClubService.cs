@@ -26,7 +26,11 @@ namespace HobbyPortal.Infrastructure.Services
 
         public async Task<IEnumerable<Club>> GetAllClubs()
         {
-            return await context.Clubs.ToArrayAsync();
+            return await context.Clubs
+                .Include(c => c.City)
+                .Include(c => c.Category)
+                .Include(c => c.Groups)
+                .ToArrayAsync();
         }
 
         public async Task<Club> CreateClub(string userName, Club club)

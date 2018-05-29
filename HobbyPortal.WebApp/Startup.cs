@@ -1,3 +1,4 @@
+using AutoMapper;
 using HobbyPortal.Infrastructure;
 using HobbyPortal.Infrastructure.Models;
 using HobbyPortal.Infrastructure.Services;
@@ -64,6 +65,7 @@ namespace HobbyPortal.WebApp
                 };
             });
 
+            services.AddAutoMapper();
             services.AddMvc();
 
             services.AddCors();

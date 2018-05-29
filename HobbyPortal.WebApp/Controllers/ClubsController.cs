@@ -1,9 +1,11 @@
+using AutoMapper;
 using HobbyPortal.Infrastructure.Models;
 using HobbyPortal.Infrastructure.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using static HobbyPortal.WebApp.ViewModels.ClubViewModels;
 
 namespace HobbyPortal.WebApp.Controllers
 {
@@ -12,18 +14,20 @@ namespace HobbyPortal.WebApp.Controllers
     [Authorize]
     public class ClubsController : Controller
     {
+        private readonly IMapper mapper;
         private readonly ClubService clubService;
 
-        public ClubsController(ClubService clubService)
+        public ClubsController(IMapper mapper, ClubService clubService)
         {
+            this.mapper = mapper;
             this.clubService = clubService;
         }
 
         [Route("")]
         [HttpGet]
-        public async Task<IEnumerable<Club>> GetAllClubs()
+        public async Task<IEnumerable<ClubViewModel>> GetAllClubs()
         {
-            return await clubService.GetAllClubs();
+            return mapper.Map<IEnumerable<Club>, IEnumerable<ClubViewModel>>(await clubService.GetAllClubs());
         }
 
         [Route("myclubs")]
