@@ -5,23 +5,26 @@ import AppLogin from '../pages/auth/Login'
 import AppRegister from '../pages/auth/Register'
 import AppProfile from '../pages/profile/Profile'
 import AppClubs from '../pages/clubs/Clubs'
-import AppClubsList from '../pages/clubs/ClubsList'
+import AppClubsAll from '../pages/clubs/ClubsAll'
 import AppMyClubs from '../pages/clubs/ClubsMy'
 import AppCreateClub from '../pages/clubs/ClubsCreate'
 import AppNotifications from '../pages/notifications/Notifications'
 
-export const routes = [
-  {
+export const routes = [{
     path: '',
     name: 'index',
     component: AppHome,
-    meta: { title: 'Головна' }
+    meta: {
+      title: 'Головна'
+    }
   },
   {
     path: '/login',
     name: 'login',
     component: AppLogin,
-    meta: { title: 'Авторизація' },
+    meta: {
+      title: 'Авторизація'
+    },
     beforeEnter: (to, from, next) => {
       if (store.getters.isAuthenticated) {
         next('/my-clubs')
@@ -34,7 +37,9 @@ export const routes = [
     path: '/register',
     name: 'register',
     component: AppRegister,
-    meta: { title: 'Реєстрація' },
+    meta: {
+      title: 'Реєстрація'
+    },
     beforeEnter: (to, from, next) => {
       if (store.getters.isAuthenticated) {
         next('/login')
@@ -47,27 +52,37 @@ export const routes = [
     path: '/profile',
     name: 'profile',
     component: AppProfile,
-    meta: { title: 'Profile', needAuth: true }
+    meta: {
+      title: 'Profile',
+      needAuth: true
+    }
   },
   {
     path: '/clubs',
     component: AppClubs,
-    meta: { needAuth: true },
-    children: [
-      {
+    meta: {
+      needAuth: true
+    },
+    children: [{
         path: '',
-        component: AppClubsList,
-        meta: { title: 'Усі клуби' }
+        component: AppClubsAll,
+        meta: {
+          title: 'Усі клуби'
+        }
       },
       {
         path: 'my',
         component: AppMyClubs,
-        meta: { title: 'Мої клуби' }
+        meta: {
+          title: 'Мої клуби'
+        }
       },
       {
         path: 'create',
         component: AppCreateClub,
-        meta: { title: 'Новий клуб' }
+        meta: {
+          title: 'Новий клуб'
+        }
       }
     ]
   },
@@ -75,7 +90,10 @@ export const routes = [
     path: '/notifications',
     name: 'notifications',
     component: AppNotifications,
-    meta: { title: 'Сповіщення', needAuth: true }
+    meta: {
+      title: 'Сповіщення',
+      needAuth: true
+    }
   },
   {
     path: '/*',

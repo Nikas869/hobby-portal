@@ -152,8 +152,10 @@ export default {
             this.$router.push('/my-clubs')
           })
           .catch(error => {
-            if (error.response.data) {
+            if (error.response && error.response.data) {
               this.errors = error.response.data
+            } else {
+              this.errors = 'Виникла помилка, спробуйте пiзнiше'
             }
           })
           .then(() => (this.loading = false))

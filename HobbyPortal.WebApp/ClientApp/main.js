@@ -21,7 +21,9 @@ store.dispatch('restoreTokenFromStorage')
 new Vue({
   el: '#app',
   template: '<App/>',
-  components: { App },
+  components: {
+    App
+  },
   router,
   store
 })

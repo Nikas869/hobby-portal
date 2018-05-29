@@ -10,9 +10,7 @@ namespace HobbyPortal.WebApp
         public MappingProfile()
         {
             CreateMap<Club, ClubViewModel>()
-                .ForMember(vm => vm.City, opt => opt.MapFrom(club => club.City.Name))
-                .ForMember(vm => vm.Category, opt => opt.MapFrom(club => club.Category.Name))
-                .ForMember(vm => vm.Groups, opt => opt.MapFrom(club => club.Groups.Select(group => group.Name)));
+                .ForMember(dest => dest.Groups, opt => opt.MapFrom(src => src.Groups.Select(group => group.Name)));
         }
     }
 }

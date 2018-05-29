@@ -25,9 +25,11 @@ namespace HobbyPortal.WebApp.Controllers
 
         [Route("")]
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IEnumerable<ClubViewModel>> GetAllClubs()
         {
-            return mapper.Map<IEnumerable<Club>, IEnumerable<ClubViewModel>>(await clubService.GetAllClubs());
+            var clubs = await clubService.GetAllClubs();
+            return mapper.Map<IEnumerable<Club>, IEnumerable<ClubViewModel>>(clubs);
         }
 
         [Route("myclubs")]

@@ -24,5 +24,10 @@ namespace HobbyPortal.Infrastructure.Models
 
         [JsonIgnore]
         public ICollection<Club> Clubs { get; set; }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }
