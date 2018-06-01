@@ -27,16 +27,12 @@ namespace HobbyPortal.Infrastructure.Models
         [JsonProperty("address")]
         public string Address { get; set; }
 
-        [Required]
-        [JsonProperty("categoryId")]
-        public int CategoryId { get; set; }
-
-        public Category Category { get; set; }
-
         public string OwnerId { get; set; }
 
         public ApplicationUser Owner { get; set; }
 
         public ICollection<Group> Groups { get; set; }
+
+        public ICollection<Review> Reviews { get; set; }
     }
 }

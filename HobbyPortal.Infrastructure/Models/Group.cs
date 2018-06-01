@@ -25,6 +25,12 @@ namespace HobbyPortal.Infrastructure.Models
         [JsonProperty("contacts")]
         public string InstructorContacts { get; set; }
 
+        [Required]
+        [JsonProperty("categoryId")]
+        public int CategoryId { get; set; }
+
+        public Category Category { get; set; }
+
         public int ClubId { get; set; }
 
         public Club Club { get; set; }
