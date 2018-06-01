@@ -7,13 +7,12 @@ namespace HobbyPortal.WebApp.ViewModels
     {
         public class ClubViewModel
         {
-            public ClubViewModel(string name, string description, string city, string address, string category, IEnumerable<string> groups)
+            public ClubViewModel(string name, string description, string city, string address, IEnumerable<string> groups)
             {
                 Name = name;
                 Description = description;
                 City = city;
                 Address = address;
-                Category = category;
                 Groups = groups;
             }
 
@@ -28,9 +27,6 @@ namespace HobbyPortal.WebApp.ViewModels
 
             [JsonProperty("address")]
             public string Address { get; set; }
-
-            [JsonProperty("category")]
-            public string Category { get; set; }
 
             [JsonProperty("groups")]
             public IEnumerable<string> Groups { get; set; }
