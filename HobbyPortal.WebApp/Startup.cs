@@ -115,7 +115,8 @@ namespace HobbyPortal.WebApp
                 try
                 {
                     var context = services.GetRequiredService<ApplicationDbContext>();
-                    DbInitializer.Initialize(context, env);
+                    var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+                    DbInitializer.Initialize(context, env, userManager);
                 }
                 catch (Exception)
                 {

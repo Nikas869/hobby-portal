@@ -43,5 +43,7 @@ namespace HobbyPortal.Infrastructure.Models
         public ICollection<Club> Clubs { get; set; }
 
         public ICollection<GroupUser> Groups { get; set; }
+
+        public ICollection<NotificationUserSetting> NotificationUserSettings { get; set; }
     }
 }

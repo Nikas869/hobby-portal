@@ -24,6 +24,8 @@ namespace HobbyPortal.Infrastructure
 
         public DbSet<GroupUser> GroupUsers { get; set; }
 
+        public DbSet<NotificationUserSetting> NotificationUserSettings { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

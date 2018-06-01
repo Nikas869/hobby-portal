@@ -1,6 +1,8 @@
 using HobbyPortal.Infrastructure.Models;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -9,7 +11,7 @@ namespace HobbyPortal.Infrastructure
 {
     public static class DbInitializer
     {
-        public static void Initialize(ApplicationDbContext context, IHostingEnvironment hostingEnvironment)
+        public static void Initialize(ApplicationDbContext context, IHostingEnvironment hostingEnvironment, UserManager<ApplicationUser> userManager)
         {
             context.Database.EnsureCreated();
 
@@ -29,6 +31,12 @@ namespace HobbyPortal.Infrastructure
                     new Category("Музика"),
                     new Category("Малювання")
                 });
+            }
+
+            if (!context.Users.Any())
+            {
+                var user = new ApplicationUser("asd@asd.asd", "Микита", "Магда", new DateTime(1997, 5, 3), "0665613628");
+                userManager.CreateAsync(user, "asd").Wait();
             }
 
             context.SaveChanges();
