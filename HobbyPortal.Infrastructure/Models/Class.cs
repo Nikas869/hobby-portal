@@ -14,8 +14,6 @@ namespace HobbyPortal.Infrastructure.Models
 
         public DateTime EndTime { get; set; }
 
-        internal string _Recurrence { get; set; }
-
         [NotMapped]
         public DayOfWeek[] Recurrence
         {
@@ -26,5 +24,7 @@ namespace HobbyPortal.Infrastructure.Models
         public int GroupId { get; set; }
 
         public Group Group { get; set; }
+
+        internal string _Recurrence { get; set; }
     }
 }

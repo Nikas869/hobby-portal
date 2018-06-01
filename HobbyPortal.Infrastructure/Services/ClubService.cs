@@ -28,7 +28,6 @@ namespace HobbyPortal.Infrastructure.Services
         {
             return await context.Clubs
                 .Include(c => c.City)
-                .Include(c => c.Category)
                 .Include(c => c.Groups)
                 .ToArrayAsync();
         }
