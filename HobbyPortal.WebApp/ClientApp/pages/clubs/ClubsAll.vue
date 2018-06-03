@@ -1,10 +1,8 @@
 <template>
   <v-container fluid>
-    <v-layout 
-      justify-center
-      row>
-      <v-flex xs2>
-        filters
+    <v-layout justify-center row>
+      <v-flex xs3>
+        <app-clubs-filter></app-clubs-filter>
       </v-flex>
       <v-flex xs7>
         <app-clubs-list :clubs="clubs"></app-clubs-list>
@@ -15,6 +13,7 @@
 
 <script>
 import AppClubsList from '../../components/club/ClubsList'
+import AppClubsFilter from '../../components/club/ClubsFilter'
 import api from '../../http/api'
 
 export default {
@@ -23,7 +22,7 @@ export default {
       clubs: []
     }
   },
-  components: { AppClubsList },
+  components: { AppClubsList, AppClubsFilter },
   created() {
     api
       .get('clubs')

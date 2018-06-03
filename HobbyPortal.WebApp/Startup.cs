@@ -72,6 +72,7 @@ namespace HobbyPortal.WebApp
 
             services.AddTransient(typeof(ClubService));
             services.AddTransient(typeof(MiscDataService));
+            services.AddTransient(typeof(NotificationService));
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

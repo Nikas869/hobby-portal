@@ -24,15 +24,19 @@ namespace HobbyPortal.WebApp.Controllers
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly IConfiguration configuration;
 
+        private readonly NotificationService notificationService;
+
         public AuthController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IConfiguration configuration,
-            MiscDataService miscDataService)
+            MiscDataService miscDataService,
+            NotificationService notificationService)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.configuration = configuration;
+            this.notificationService = notificationService;
         }
 
         [Route("register")]

@@ -26,6 +26,14 @@ namespace HobbyPortal.Infrastructure.Models
         public string InstructorContacts { get; set; }
 
         [Required]
+        [JsonProperty("minAge")]
+        public int? MinAge { get; set; }
+
+        [Required]
+        [JsonProperty("maxAge")]
+        public int? MaxAge { get; set; }
+
+        [Required]
         [JsonProperty("categoryId")]
         public int CategoryId { get; set; }
 

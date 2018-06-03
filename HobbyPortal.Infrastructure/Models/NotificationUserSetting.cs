@@ -4,6 +4,13 @@ namespace HobbyPortal.Infrastructure.Models
 {
     public class NotificationUserSetting
     {
+        public NotificationUserSetting(string notificationProvider, string setting, string userId)
+        {
+            NotificationProvider = notificationProvider;
+            Setting = setting;
+            UserId = userId;
+        }
+
         [Key]
         public int NotificationUserSettingId { get; set; }
 
@@ -11,7 +18,7 @@ namespace HobbyPortal.Infrastructure.Models
 
         public string Setting { get; set; }
 
-        public int UserId { get; set; }
+        public string UserId { get; set; }
 
         public ApplicationUser User { get; set; }
     }

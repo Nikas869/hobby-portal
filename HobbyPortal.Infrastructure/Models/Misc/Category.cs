@@ -13,7 +13,7 @@ namespace HobbyPortal.Infrastructure.Models
 
         protected Category()
         {
-            Clubs = new List<Club>();
+            Groups = new List<Group>();
         }
 
         [Key]
@@ -23,7 +23,7 @@ namespace HobbyPortal.Infrastructure.Models
         public string Name { get; set; }
 
         [JsonIgnore]
-        public ICollection<Club> Clubs { get; set; }
+        public ICollection<Group> Groups { get; set; }
 
         public override string ToString()
         {

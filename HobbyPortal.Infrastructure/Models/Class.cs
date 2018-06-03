@@ -17,14 +17,14 @@ namespace HobbyPortal.Infrastructure.Models
         [NotMapped]
         public DayOfWeek[] Recurrence
         {
-            get { return _Recurrence == null ? new DayOfWeek[0] : JsonConvert.DeserializeObject<DayOfWeek[]>(_Recurrence); }
-            set { _Recurrence = JsonConvert.SerializeObject(value); }
+            get { return RecurrenceConfig == null ? new DayOfWeek[0] : JsonConvert.DeserializeObject<DayOfWeek[]>(RecurrenceConfig); }
+            set { RecurrenceConfig = JsonConvert.SerializeObject(value); }
         }
 
         public int GroupId { get; set; }
 
         public Group Group { get; set; }
 
-        internal string _Recurrence { get; set; }
+        public string RecurrenceConfig { get; private set; }
     }
 }
