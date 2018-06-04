@@ -24,19 +24,14 @@ namespace HobbyPortal.WebApp.Controllers
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly IConfiguration configuration;
 
-        private readonly NotificationService notificationService;
-
         public AuthController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
-            IConfiguration configuration,
-            MiscDataService miscDataService,
-            NotificationService notificationService)
+            IConfiguration configuration)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.configuration = configuration;
-            this.notificationService = notificationService;
         }
 
         [Route("register")]
@@ -53,24 +48,7 @@ namespace HobbyPortal.WebApp.Controllers
             var result = await userManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
             {
-                var userClaims = await userManager.GetClaimsAsync(user);
-
-                var claims = new[]
-                {
-                    new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
-                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                    new Claim(JwtRegisteredClaimNames.Email, user.Email),
-
-                    new Claim(ClaimsIdentity.DefaultNameClaimType, user.UserName)
-                }.Union(userClaims);
-
-                var token = new JwtSecurityToken(
-                    issuer: configuration["Authentication:Issuer"],
-                    audience: configuration["Authentication:Audience"],
-                    claims: claims,
-                    expires: DateTime.Now.AddMinutes(30),
-                    notBefore: DateTime.Now,
-                    signingCredentials: new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Authentication:SigningKey"])), SecurityAlgorithms.HmacSha256));
+                JwtSecurityToken token = await GenerateToken(user);
 
                 return Ok(new
                 {
@@ -104,24 +82,7 @@ namespace HobbyPortal.WebApp.Controllers
                 return Unauthorized();
             }
 
-            var userClaims = await userManager.GetClaimsAsync(user);
-
-            var claims = new[]
-            {
-                new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(JwtRegisteredClaimNames.Email, user.Email),
-
-                new Claim(ClaimsIdentity.DefaultNameClaimType, user.UserName)
-            }.Union(userClaims);
-
-            var token = new JwtSecurityToken(
-                issuer: configuration["Authentication:Issuer"],
-                audience: configuration["Authentication:Audience"],
-                claims: claims,
-                expires: DateTime.Now.AddMinutes(30),
-                notBefore: DateTime.Now,
-                signingCredentials: new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Authentication:SigningKey"])), SecurityAlgorithms.HmacSha256));
+            JwtSecurityToken token = await GenerateToken(user);
 
             return Ok(new
             {
@@ -135,6 +96,29 @@ namespace HobbyPortal.WebApp.Controllers
         public string GetUserInfo()
         {
             return User.Identity.Name;
+        }
+
+        private async Task<JwtSecurityToken> GenerateToken(ApplicationUser user)
+        {
+            var userClaims = await userManager.GetClaimsAsync(user);
+
+            var claims = new[]
+            {
+                    new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                    new Claim(JwtRegisteredClaimNames.Email, user.Email),
+
+                    new Claim(ClaimsIdentity.DefaultNameClaimType, user.UserName)
+                }.Union(userClaims);
+
+            var token = new JwtSecurityToken(
+                issuer: configuration["Authentication:Issuer"],
+                audience: configuration["Authentication:Audience"],
+                claims: claims,
+                expires: DateTime.Now.AddMinutes(30),
+                notBefore: DateTime.Now,
+                signingCredentials: new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Authentication:SigningKey"])), SecurityAlgorithms.HmacSha256));
+            return token;
         }
     }
 }
