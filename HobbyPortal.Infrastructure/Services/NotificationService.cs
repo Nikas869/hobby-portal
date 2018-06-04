@@ -19,12 +19,16 @@ namespace HobbyPortal.Infrastructure.Services
         private readonly ApplicationDbContext context;
         private readonly UserManager<ApplicationUser> userManager;
 
-        public NotificationService(IConfiguration configuration, ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        public NotificationService(
+            IConfiguration configuration,
+            ApplicationDbContext context,
+            UserManager<ApplicationUser> userManager,
+            ITelegramBotClient telegramBotClient)
         {
             this.configuration = configuration;
             this.context = context;
             this.userManager = userManager;
-            this.telegramBotClient = new TelegramBotClient(configuration["TelegramKey"]);
+            this.telegramBotClient = telegramBotClient;
         }
 
         public async Task TryCreateUserNotificationSettings(string userName)

@@ -1,6 +1,6 @@
 namespace HobbyPortal.Infrastructure.Models
 {
-    enum NotificationProvider
+    public enum NotificationProvider
     {
         Telegram
     }

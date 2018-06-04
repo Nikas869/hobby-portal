@@ -13,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Text;
+using Telegram.Bot;
 
 namespace HobbyPortal.WebApp
 {
@@ -69,6 +70,8 @@ namespace HobbyPortal.WebApp
             services.AddMvc();
 
             services.AddCors();
+
+            services.AddTransient<ITelegramBotClient>(sp => new TelegramBotClient(Configuration["TelegramKey"]));
 
             services.AddTransient(typeof(ClubService));
             services.AddTransient(typeof(MiscDataService));

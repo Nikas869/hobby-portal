@@ -60,9 +60,6 @@ export const routes = [{
   {
     path: '/clubs',
     component: AppClubs,
-    meta: {
-      needAuth: true
-    },
     children: [{
         path: '',
         component: AppClubsAll,
@@ -74,14 +71,16 @@ export const routes = [{
         path: 'my',
         component: AppMyClubs,
         meta: {
-          title: 'Мої клуби'
+          title: 'Мої клуби',
+          needAuth: true
         }
       },
       {
         path: 'create',
         component: AppCreateClub,
         meta: {
-          title: 'Новий клуб'
+          title: 'Новий клуб',
+          needAuth: true
         }
       }
     ]
