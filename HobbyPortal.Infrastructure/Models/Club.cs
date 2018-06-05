@@ -10,10 +10,13 @@ namespace HobbyPortal.Infrastructure.Models
         public int ClubId { get; set; }
 
         [Required]
+        [MaxLength(120)]
         [JsonProperty("name")]
         public string Name { get; set; }
 
         [Required]
+        [MinLength(10)]
+        [MaxLength(450)]
         [JsonProperty("description")]
         public string Description { get; set; }
 
@@ -24,6 +27,7 @@ namespace HobbyPortal.Infrastructure.Models
         public City City { get; set; }
 
         [Required]
+        [MaxLength(120)]
         [JsonProperty("address")]
         public string Address { get; set; }
 
