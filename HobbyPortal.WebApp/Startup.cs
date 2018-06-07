@@ -71,11 +71,11 @@ namespace HobbyPortal.WebApp
 
             services.AddCors();
 
-            services.AddTransient<ITelegramBotClient>(sp => new TelegramBotClient(Configuration["TelegramKey"]));
-
-            services.AddTransient(typeof(ClubService));
-            services.AddTransient(typeof(MiscDataService));
-            services.AddTransient(typeof(NotificationService));
+            services.AddScoped<ITelegramBotClient>(sp =>
+                new TelegramBotClient(Configuration["TelegramKey"]));
+            services.AddScoped(typeof(ClubService));
+            services.AddScoped(typeof(MiscDataService));
+            services.AddScoped(typeof(NotificationService));
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

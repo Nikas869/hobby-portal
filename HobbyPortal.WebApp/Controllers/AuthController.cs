@@ -117,7 +117,10 @@ namespace HobbyPortal.WebApp.Controllers
                 claims: claims,
                 expires: DateTime.Now.AddMinutes(30),
                 notBefore: DateTime.Now,
-                signingCredentials: new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Authentication:SigningKey"])), SecurityAlgorithms.HmacSha256));
+                signingCredentials: new SigningCredentials(
+                    new SymmetricSecurityKey(
+                        Encoding.UTF8.GetBytes(configuration["Authentication:SigningKey"])),
+                    SecurityAlgorithms.HmacSha256));
             return token;
         }
     }
