@@ -1,24 +1,36 @@
+import api from '../../http/auth-api'
+
 const state = {
   user: {
-    email: ''
+    id: null,
+    firstName: null,
+    lastName: null
   }
 }
 
 const getters = {
-  userEmail(state) {
-    return state.user.email
+  user(state) {
+    return state.user
   }
 }
 
 const mutations = {
-  setUserEmail(state, payload) {
-    state.user.email = payload
+  setUser(state, payload) {
+    state.user = payload
   }
 }
 
 const actions = {
-  setUserEmail({ commit }, payload) {
-    commit('setUserEmail', payload)
+  setUser({ commit }, payload) {
+    return new Promise((resolve, reject) => {
+      api
+        .get('/account/me')
+        .then(response => {
+          commit('setUser', response.data)
+          resolve()
+        })
+        .catch(error => reject(error))
+    })
   }
 }
 

@@ -16,7 +16,7 @@
             
             <v-menu offset-y>
                 <v-btn flat slot="activator">
-                    Здравствуйте, stranger!
+                    Здравствуйте, {{ this.$store.getters.user.firstName }} {{ this.$store.getters.user.lastName }}!
                     <v-icon dark right>menu</v-icon>
                 </v-btn>
                 <v-list>

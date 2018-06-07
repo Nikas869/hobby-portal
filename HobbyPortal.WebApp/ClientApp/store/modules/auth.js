@@ -62,6 +62,7 @@ const actions = {
     router.push('/')
   },
   setExpirationTime({ commit, dispatch }, payload) {
+    dispatch('setUser')
     let now = new Date()
     let expirationDate = new Date(payload)
     let expirationTime = expirationDate.getTime() - now.getTime()
