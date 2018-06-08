@@ -1,23 +1,75 @@
 <template>
   <app-layout>
     <v-container fluid>
-      <img :src="require('../assets/logo.png')">
-      <h1>Welcome to Your Vue.js App!</h1>
-      <v-btn to="/clubs">See all clubs</v-btn>
-      <h2>Essential Links</h2>
-      <ul>
-        <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
-        <li><a href="https://forum.vuejs.org" target="_blank">Forum</a></li>
-        <li><a href="https://chat.vuejs.org" target="_blank">Community Chat</a></li>
-        <li><a href="https://twitter.com/vuejs" target="_blank">Twitter</a></li>
-      </ul>
-      <h2>Ecosystem</h2>
-      <ul>
-        <li><a href="http://router.vuejs.org/" target="_blank">vue-router</a></li>
-        <li><a href="http://vuex.vuejs.org/" target="_blank">vuex</a></li>
-        <li><a href="http://vue-loader.vuejs.org/" target="_blank">vue-loader</a></li>
-        <li><a href="https://github.com/vuejs/awesome-vue" target="_blank">awesome-vue</a></li>
-      </ul>
+      <img :src="require('../assets/landing.png')" height="250">
+      <h1>Клуби та гуртки України</h1>
+      <v-btn 
+        to="/clubs"
+        class="mt-4"
+        color="primary"
+        large>
+        Перейти до каталогу
+      </v-btn>
+      <section>
+        <v-layout
+          column
+          wrap
+          class="my-2"
+          align-center
+          >
+          <v-flex xs12>
+            <v-container grid-list-xl>
+              <v-layout row wrap align-center>
+                <v-flex xs12 md4>
+                  <v-card class="elevation-0 transparent">
+                    <v-card-text class="text-xs-center">
+                      <v-icon x-large class="teal--text">color_lens</v-icon>
+                    </v-card-text>
+                    <v-card-title primary-title class="layout justify-center">
+                      <div class="headline text-xs-center">Material Design</div>
+                    </v-card-title>
+                    <v-card-text>
+                      Cras facilisis mi vitae nunc lobortis pharetra. Nulla volutpat tincidunt ornare. 
+                      Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. 
+                      Nullam in aliquet odio. Aliquam eu est vitae tellus bibendum tincidunt. Suspendisse potenti. 
+                    </v-card-text>
+                  </v-card>
+                </v-flex>
+                <v-flex xs12 md4>
+                  <v-card class="elevation-0 transparent">
+                    <v-card-text class="text-xs-center">
+                      <v-icon x-large class="teal--text">flash_on</v-icon>
+                    </v-card-text>
+                    <v-card-title primary-title class="layout justify-center">
+                      <div class="headline">Fast development</div>
+                    </v-card-title>
+                    <v-card-text>
+                      Cras facilisis mi vitae nunc lobortis pharetra. Nulla volutpat tincidunt ornare. 
+                      Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. 
+                      Nullam in aliquet odio. Aliquam eu est vitae tellus bibendum tincidunt. Suspendisse potenti. 
+                    </v-card-text>
+                  </v-card>
+                </v-flex>
+                <v-flex xs12 md4>
+                  <v-card class="elevation-0 transparent">
+                    <v-card-text class="text-xs-center">
+                      <v-icon x-large class="teal--text">build</v-icon>
+                    </v-card-text>
+                    <v-card-title primary-title class="layout justify-center">
+                      <div class="headline text-xs-center">Completely Open Sourced</div>
+                    </v-card-title>
+                    <v-card-text>
+                      Cras facilisis mi vitae nunc lobortis pharetra. Nulla volutpat tincidunt ornare. 
+                      Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. 
+                      Nullam in aliquet odio. Aliquam eu est vitae tellus bibendum tincidunt. Suspendisse potenti. 
+                    </v-card-text>
+                  </v-card>
+                </v-flex>
+              </v-layout>
+            </v-container>
+          </v-flex>
+        </v-layout>
+      </section>
     </v-container>
   </app-layout>
 </template>
