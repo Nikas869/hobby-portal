@@ -25,12 +25,8 @@ namespace HobbyPortal.Infrastructure
 
             if (!context.Categories.Any())
             {
-                context.Categories.AddRange(new[]
-                {
-                    new Category("Спорт"),
-                    new Category("Музика"),
-                    new Category("Малювання")
-                });
+                var file = Path.Combine(hostingEnvironment.ContentRootPath, "Data", "categories.txt");
+                context.Categories.AddRange(File.ReadAllLines(file).Select(line => new Category(line)));
             }
 
             if (!context.Users.Any())
