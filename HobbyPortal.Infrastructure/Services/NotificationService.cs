@@ -37,7 +37,8 @@ namespace HobbyPortal.Infrastructure.Services
 
             await CheckExistingSettings(user.Id, NotificationProvider.Telegram.ToString());
 
-            var updates = await telegramBotClient.GetUpdatesAsync(allowedUpdates: new[] { UpdateType.Message });
+            var updates = await telegramBotClient.GetUpdatesAsync(
+                allowedUpdates: new[] { UpdateType.Message });
             var registerRequest = updates.Where(update => update.Message.Text == user.Id)
                 .OrderBy(update => update.Message.Date).FirstOrDefault();
 
@@ -71,11 +72,13 @@ namespace HobbyPortal.Infrastructure.Services
         private async Task CheckExistingSettings(string id, string providerName)
         {
             var existingSettingsCount = await context.NotificationUserSettings
-                .CountAsync(notification => notification.UserId == id && notification.NotificationProvider == providerName);
+                .CountAsync(notification => notification.UserId == id &&
+                    notification.NotificationProvider == providerName);
 
             if (existingSettingsCount > 0)
             {
-                throw new SettingAlreadyExistException($"You already have settings for {providerName}!");
+                throw new SettingAlreadyExistException(
+                    $"You already have settings for {providerName}!");
             }
         }
 
@@ -84,7 +87,8 @@ namespace HobbyPortal.Infrastructure.Services
             await telegramBotClient.SendTextMessageAsync(
                 new ChatId(chatId),
                 $"Ласкаво просимо, {user.FirstName} {user.LastName}! " +
-                $"Тепер ви будете отримувати сповіщення від адміністрації клубів, у яких ви є учасником.");
+                $"Тепер ви будете отримувати сповіщення від адміністрації клубів, " +
+                $"у яких ви є учасником.");
         }
     }
 }

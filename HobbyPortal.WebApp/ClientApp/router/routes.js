@@ -1,16 +1,19 @@
 import store from '../store'
+import { TITLE } from '../.env'
 
 import AppHome from '../pages/Home'
 import AppLogin from '../pages/auth/Login'
 import AppRegister from '../pages/auth/Register'
 import AppProfile from '../pages/profile/Profile'
 import AppClubs from '../pages/clubs/Clubs'
+import AppClubView from '../pages/clubs/ClubView'
 import AppClubsAll from '../pages/clubs/ClubsAll'
 import AppMyClubs from '../pages/clubs/ClubsMy'
 import AppCreateClub from '../pages/clubs/ClubsCreate'
 import AppNotifications from '../pages/notifications/Notifications'
 
-export const routes = [{
+export const routes = [
+  {
     path: '',
     name: 'index',
     component: AppHome,
@@ -60,7 +63,8 @@ export const routes = [{
   {
     path: '/clubs',
     component: AppClubs,
-    children: [{
+    children: [
+      {
         path: '',
         component: AppClubsAll,
         meta: {
@@ -73,6 +77,14 @@ export const routes = [{
         meta: {
           title: 'Мої клуби',
           needAuth: true
+        }
+      },
+      {
+        path: ':id',
+        component: AppClubView,
+        props: true,
+        meta: {
+          title: TITLE
         }
       },
       {

@@ -3,33 +3,39 @@ using System.Collections.Generic;
 
 namespace HobbyPortal.WebApp.ViewModels
 {
-    public class ClubViewModels
+    public class ClubSummaryViewModel
     {
-        public class ClubViewModel
-        {
-            public ClubViewModel(string name, string description, string city, string address, IEnumerable<string> groups)
-            {
-                Name = name;
-                Description = description;
-                City = city;
-                Address = address;
-                Groups = groups;
-            }
+        [JsonProperty("id")]
+        public int ClubId { get; set; }
 
-            [JsonProperty("name")]
-            public string Name { get; set; }
+        [JsonProperty("name")]
+        public string Name { get; set; }
 
-            [JsonProperty("description")]
-            public string Description { get; set; }
+        [JsonProperty("description")]
+        public string Description { get; set; }
 
-            [JsonProperty("city")]
-            public string City { get; set; }
+        [JsonProperty("city")]
+        public string City { get; set; }
 
-            [JsonProperty("address")]
-            public string Address { get; set; }
+        [JsonProperty("address")]
+        public string Address { get; set; }
 
-            [JsonProperty("groups")]
-            public IEnumerable<string> Groups { get; set; }
-        }
+        [JsonProperty("reviewsCount")]
+        public int ReviewsCount { get; set; }
+
+        [JsonProperty("groups")]
+        public IEnumerable<GroupSummaryViewModel> Groups { get; set; }
+    }
+
+    public class ClubViewModel : ClubSummaryViewModel
+    {
+        [JsonProperty("phone")]
+        public string Phone { get; set; }
+
+        [JsonProperty("groups")]
+        public new IEnumerable<GroupViewModel> Groups { get; set; }
+
+        [JsonProperty("reviews")]
+        public IEnumerable<ReviewViewModel> Reviews { get; set; }
     }
 }

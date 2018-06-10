@@ -29,6 +29,8 @@ namespace HobbyPortal.Infrastructure.Services
             return await context.Clubs
                 .Include(c => c.City)
                 .Include(c => c.Groups)
+                    .ThenInclude(group => group.Category)
+                .Include(c => c.Reviews)
                 .ToArrayAsync();
         }
 
@@ -45,7 +47,12 @@ namespace HobbyPortal.Infrastructure.Services
 
         public Task<Club> GetClub(int id)
         {
-            return context.Clubs.FindAsync(id);
+            return context.Clubs
+                .Include(c => c.City)
+                .Include(c => c.Groups)
+                    .ThenInclude(group => group.Category)
+                .Include(c => c.Reviews)
+                .SingleOrDefaultAsync(c => c.ClubId == id);
         }
     }
 }

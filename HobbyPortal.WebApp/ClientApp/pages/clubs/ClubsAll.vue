@@ -1,10 +1,10 @@
 <template>
   <v-container fluid>
     <v-layout justify-center row>
-      <v-flex xs3>
+      <v-flex xs2>
         <app-clubs-filter></app-clubs-filter>
       </v-flex>
-      <v-flex xs7>
+      <v-flex xs6>
         <app-clubs-list :clubs="clubs"></app-clubs-list>
       </v-flex>
     </v-layout>

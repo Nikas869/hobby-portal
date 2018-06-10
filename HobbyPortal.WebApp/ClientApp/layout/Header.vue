@@ -2,6 +2,7 @@
     <v-toolbar app dark color="primary">
         <v-toolbar-items>
             <v-btn flat to="/">Головна</v-btn>
+            <v-btn flat to="/clubs" exact>Каталог</v-btn>
         </v-toolbar-items>
         <v-spacer></v-spacer>
         <v-toolbar-items v-if="!isAuthenticated">
@@ -9,7 +10,7 @@
             <v-btn flat to='/login'>Авторизація</v-btn>
         </v-toolbar-items>
         <v-toolbar-items v-if="isAuthenticated">
-            <v-btn flat to='/clubs/my'>
+            <v-btn flat to='/clubs/my' exact>
                 <v-icon dark left>sentiment_satisfied_alt</v-icon>
                 Мої клуби
             </v-btn>

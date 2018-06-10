@@ -1,15 +1,15 @@
 <template>
   <v-container fluid grid-list-lg tag="section">
     <v-layout row wrap>
-      <v-flex sm6 offset-sm3>
+      <v-flex xs12 md6 offset-md3>
         <v-card>
           <v-card-title>
             <h1 class="headline">Створити новий клуб</h1>
           </v-card-title>
         </v-card>
       </v-flex>
-      <v-spacer></v-spacer>
-      <v-flex sm6 offset-sm3>
+
+      <v-flex xs12 md6 offset-md3>
         <v-form ref="form" v-model="valid" lazy-validation>
           <v-card>
             <v-card-text>

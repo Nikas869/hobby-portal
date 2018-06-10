@@ -11,7 +11,8 @@
         slot-scope="props"
         xs12>
         <v-card>
-          <v-card-title primary-title>
+          <v-card-title
+            primary-title>
             <div class="headline mb-0 ellipsis">
               {{ props.item.name }}
             </div>
@@ -34,8 +35,13 @@
           </v-container>
 
           <v-card-actions>
+            <v-badge>
+              <span slot="badge">{{ props.item.reviewsCount }}</span>
+              <v-icon>comment</v-icon>
+            </v-badge>
             <v-spacer></v-spacer>
             <v-btn
+              :to="`/clubs/${props.item.id}`"
               color="primary" 
               flat>
               Детальніше

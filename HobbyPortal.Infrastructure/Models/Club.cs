@@ -1,11 +1,18 @@
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HobbyPortal.Infrastructure.Models
 {
     public class Club
     {
+        public Club()
+        {
+            this.Groups = new List<Group>();
+            this.Reviews = new List<Review>();
+        }
+
         [Key]
         public int ClubId { get; set; }
 
@@ -19,6 +26,12 @@ namespace HobbyPortal.Infrastructure.Models
         [MaxLength(450)]
         [JsonProperty("description")]
         public string Description { get; set; }
+
+        [Required]
+        [MaxLength(20)]
+        [JsonProperty("phone")]
+        [NotMapped]
+        public string Phone { get; set; }
 
         [Required]
         [JsonProperty("cityId")]
@@ -35,8 +48,8 @@ namespace HobbyPortal.Infrastructure.Models
 
         public ApplicationUser Owner { get; set; }
 
-        public ICollection<Group> Groups { get; set; }
+        public List<Group> Groups { get; set; }
 
-        public ICollection<Review> Reviews { get; set; }
+        public List<Review> Reviews { get; set; }
     }
 }

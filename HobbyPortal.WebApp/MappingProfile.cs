@@ -1,8 +1,6 @@
 using AutoMapper;
 using HobbyPortal.Infrastructure.Models;
 using HobbyPortal.WebApp.ViewModels;
-using System.Linq;
-using static HobbyPortal.WebApp.ViewModels.ClubViewModels;
 
 namespace HobbyPortal.WebApp
 {
@@ -10,8 +8,16 @@ namespace HobbyPortal.WebApp
     {
         public MappingProfile()
         {
-            CreateMap<Club, ClubViewModel>()
-                .ForMember(dest => dest.Groups, opt => opt.MapFrom(src => src.Groups.Select(group => group.Name)));
+            CreateMap<Club, ClubSummaryViewModel>()
+                .ForMember(dest => dest.ReviewsCount, opt => opt.MapFrom(src => src.Reviews.Count));
+            CreateMap<Club, ClubViewModel>();
+
+            CreateMap<Group, GroupSummaryViewModel>()
+                .ForMember(dest => dest.Category, opt => opt.MapFrom(src => src.Category));
+            CreateMap<Group, GroupViewModel>();
+
+            CreateMap<Review, ReviewViewModel>();
+
             CreateMap<ApplicationUser, MyAccountViewModel>();
         }
     }

@@ -43,6 +43,6 @@ namespace HobbyPortal.Infrastructure.Models
 
         public Club Club { get; set; }
 
-        public ICollection<GroupUser> Users { get; set; }
+        public List<GroupUser> Users { get; set; }
     }
 }
