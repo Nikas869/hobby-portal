@@ -12,7 +12,7 @@
           </p>
         </v-flex>
 
-        <v-flex xs12 md8 offset-md2 lg6 offset-lg3>
+        <v-flex xs12 md8 offset-md2 lg6 offset-lg3 v-if="!this.isRegistered">
           <v-expansion-panel popout>
             <v-expansion-panel-content>
               <div slot="header">
@@ -38,7 +38,7 @@
                   <v-btn @click="openTelegramBot">
                     Написати боту
                   </v-btn>
-                  <v-btn color="primary">
+                  <v-btn color="primary" @click="registerSettings">
                     Перевірити налаштування
                   </v-btn>
                 </v-card-actions>
@@ -83,12 +83,23 @@
 
 <script>
 import AppLayout from '../../layout/Layout'
+import api from '../../http/auth-api'
 
 export default {
   components: { AppLayout },
+  data() {
+    return {
+      isRegistered: false
+    }
+  },
   methods: {
     openTelegramBot() {
       window.open('https://telegram.me/clubs_and_societies_bot')
+    },
+    registerSettings() {
+      api.post('/notification/register', null).then(response => {
+        this.isRegistered = true
+      })
     }
   }
 }

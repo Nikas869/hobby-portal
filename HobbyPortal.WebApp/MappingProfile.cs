@@ -21,7 +21,8 @@ namespace HobbyPortal.WebApp
 
             CreateMap<Review, ReviewViewModel>();
 
-            CreateMap<ApplicationUser, MyAccountViewModel>();
+            CreateMap<ApplicationUser, MyAccountViewModel>()
+                .ForMember(dest => dest.Groups, opt => opt.MapFrom(src => src.Groups.Select(group => group.GroupId)));
         }
     }
 }

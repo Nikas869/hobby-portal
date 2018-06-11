@@ -10,6 +10,7 @@ import AppClubView from '../pages/clubs/ClubView'
 import AppClubsAll from '../pages/clubs/ClubsAll'
 import AppMyClubs from '../pages/clubs/ClubsMy'
 import AppCreateClub from '../pages/clubs/ClubsCreate'
+import AppClubAdmin from '../pages/clubs/ClubAdmin'
 import AppNotifications from '../pages/notifications/Notifications'
 
 export const routes = [
@@ -80,19 +81,26 @@ export const routes = [
         }
       },
       {
-        path: ':id',
-        component: AppClubView,
-        props: true,
-        meta: {
-          title: TITLE
-        }
-      },
-      {
         path: 'create',
         component: AppCreateClub,
         meta: {
           title: 'Новий клуб',
           needAuth: true
+        }
+      },
+      {
+        path: 'admin',
+        component: AppClubAdmin,
+        meta: {
+          title: 'Адміністрування'
+        }
+      },
+      {
+        path: ':id',
+        component: AppClubView,
+        props: true,
+        meta: {
+          title: TITLE
         }
       }
     ]

@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace HobbyPortal.WebApp.ViewModels
 {
@@ -12,5 +13,8 @@ namespace HobbyPortal.WebApp.ViewModels
 
         [JsonProperty("lastName")]
         public string LastName { get; set; }
+
+        [JsonProperty("groups")]
+        public IEnumerable<int> Groups { get; set; }
     }
 }

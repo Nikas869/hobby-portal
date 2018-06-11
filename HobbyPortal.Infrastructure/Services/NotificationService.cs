@@ -65,8 +65,10 @@ namespace HobbyPortal.Infrastructure.Services
                 throw new ArgumentException("User not found");
             }
 
-            var userContact = context.NotificationUserSettings.Where(settings => settings.User == user).First().Setting;
+            var userContact = long.Parse(context.NotificationUserSettings.Where(settings => settings.UserId == user.Id).First().Setting);
             var chat = new ChatId(userContact);
+
+            await telegramBotClient.SendTextMessageAsync(chat, $@"Повідомлення від напрямку ""Молодша група"" клубу ""Дитяча школа робототехніки ""Ботеон"": {notificationText}");
         }
 
         private async Task CheckExistingSettings(string id, string providerName)

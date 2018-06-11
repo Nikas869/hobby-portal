@@ -39,6 +39,12 @@
                         </v-list-tile-avatar>
                         <v-list-tile-title>Створити клуб</v-list-tile-title>
                     </v-list-tile>
+                    <v-list-tile to='/clubs/admin'>
+                        <v-list-tile-avatar>
+                            <v-icon>edit</v-icon>
+                        </v-list-tile-avatar>
+                        <v-list-tile-title>Адміністрування</v-list-tile-title>
+                    </v-list-tile>
                     <v-divider></v-divider>
                     <v-list-tile @click="logout">
                         <v-list-tile-avatar>

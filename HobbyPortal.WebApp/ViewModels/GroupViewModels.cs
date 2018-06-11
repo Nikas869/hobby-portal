@@ -16,6 +16,9 @@ namespace HobbyPortal.WebApp.ViewModels
 
     public class GroupViewModel : GroupSummaryViewModel
     {
+        [JsonProperty("description")]
+        public string Description { get; set; }
+
         [JsonProperty("instructor")]
         public string Instructor { get; set; }
 

@@ -76,6 +76,7 @@ namespace HobbyPortal.WebApp
             services.AddScoped(typeof(ClubService));
             services.AddScoped(typeof(MiscDataService));
             services.AddScoped(typeof(NotificationService));
+            services.AddScoped(typeof(AccountService));
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <v-layout justify-center row>
-      <v-flex xs2>
+      <v-flex xs3>
         <app-clubs-filter></app-clubs-filter>
       </v-flex>
       <v-flex xs6>

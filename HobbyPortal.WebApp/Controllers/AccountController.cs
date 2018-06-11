@@ -1,9 +1,8 @@
 using System.Threading.Tasks;
 using AutoMapper;
-using HobbyPortal.Infrastructure.Models;
+using HobbyPortal.Infrastructure.Services;
 using HobbyPortal.WebApp.ViewModels;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HobbyPortal.WebApp.Controllers
@@ -13,18 +12,18 @@ namespace HobbyPortal.WebApp.Controllers
     [Authorize]
     public class AccountController : Controller
     {
-        private readonly UserManager<ApplicationUser> userManager;
+        private readonly AccountService accountService;
 
-        public AccountController(UserManager<ApplicationUser> userManager)
+        public AccountController(AccountService accountService)
         {
-            this.userManager = userManager;
+            this.accountService = accountService;
         }
 
         [Route("me")]
         [HttpGet]
         public async Task<MyAccountViewModel> GetMyAccountInfo()
         {
-            return Mapper.Map<MyAccountViewModel>(await userManager.FindByNameAsync(User.Identity.Name));
+            return Mapper.Map<MyAccountViewModel>(await accountService.GetUserByName(User.Identity.Name));
         }
     }
 }

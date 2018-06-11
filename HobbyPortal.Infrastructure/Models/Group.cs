@@ -14,6 +14,10 @@ namespace HobbyPortal.Infrastructure.Models
         public string Name { get; set; }
 
         [Required]
+        [JsonProperty("description")]
+        public string Description { get; set; }
+
+        [Required]
         [JsonProperty("instructor")]
         public string Instructor { get; set; }
 
