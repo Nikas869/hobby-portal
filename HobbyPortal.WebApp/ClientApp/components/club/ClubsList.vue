@@ -16,6 +16,13 @@
             <div class="headline mb-0 ellipsis">
               {{ props.item.name }}
             </div>
+            <v-spacer></v-spacer>
+            <v-badge left>
+              <span slot="badge">
+                {{ props.item.rating }}
+              </span>
+              <v-icon>star</v-icon>
+            </v-badge>
           </v-card-title>
 
           <v-divider></v-divider>

@@ -23,6 +23,9 @@ namespace HobbyPortal.WebApp.ViewModels
         [JsonProperty("reviewsCount")]
         public int ReviewsCount { get; set; }
 
+        [JsonProperty("rating")]
+        public float Rating { get; set; }
+
         [JsonProperty("groups")]
         public IEnumerable<GroupSummaryViewModel> Groups { get; set; }
     }
